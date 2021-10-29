@@ -11,4 +11,4 @@ Here you can quickly jump to a repository section :
 ### [Branching](/docs/repository/branching)
 
 
-### [Others](/docs/repository/branching)
+### [GIT BASH](/docs/repository/git-bash)
