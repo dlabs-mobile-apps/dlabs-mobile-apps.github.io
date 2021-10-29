@@ -1,8 +1,8 @@
 ---
-title: Branching
+title: GIT BASH
 tags: 
  - repository
-description: Getting started 
+description: GIT BASH
 ---
 
 # Git Bash
@@ -92,6 +92,12 @@ Alternatively, you can undo the git rebase with
 
 ```
 git rebase --abort
+```
+
+After done your rebase you need to force push your branch:
+
+```
+git push -f origin [your branch]
 ```
 
 ## git cherry-pick

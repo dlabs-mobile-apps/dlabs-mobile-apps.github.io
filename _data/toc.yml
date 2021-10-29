@@ -8,6 +8,8 @@
       children:
         - title: Branching
           url: "docs/repository/branching"
+        - title: GIT BASH
+          url: "docs/repository/git-bash"
     - title: "Design Pattern"
       url: "docs/design-pattern"
       children:
