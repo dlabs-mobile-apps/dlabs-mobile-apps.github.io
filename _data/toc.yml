@@ -6,6 +6,8 @@
     - title: "Repository"
       url: "docs/repository"
       children:
+        - title: Main Branch
+          url: "docs/repository/main-branch"
         - title: Branching
           url: "docs/repository/branching"
         - title: GIT BASH

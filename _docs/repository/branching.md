@@ -2,7 +2,7 @@
 title: Branching
 tags: 
  - repository
-description: Getting started 
+description: Branching
 ---
 
 # Branching

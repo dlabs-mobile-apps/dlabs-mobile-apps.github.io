@@ -4,9 +4,9 @@ title: Design Pattern
 description: Design Pattern 
 ---
 
-# Repository
+# Design Pattern
 
-Here you can quickly jump to a repository section :
+Design pattern section :
 
 ### [State Management](/docs/design-pattern/state-management)
 
