@@ -1,0 +1,75 @@
+---
+slug: how-to-create-blog-post
+title: How to Create Blog Post
+authors: irufano
+tags: [tutorial, blog]
+---
+
+## Adding posts​
+To publish in the blog, create a Markdown file within the blog directory.
+
+For example, create a file at website/blog/2021-08-05-hello-blog.md
+
+```markdown title="website/blog/2021-08-05-hello-blog.md"
+---
+title: Welcome Docusaurus v2
+description: This is my first post on Docusaurus 2.
+slug: welcome-docusaurus-v2
+authors:
+  - name: Joel Marcey
+    title: Co-creator of Docusaurus 1
+    url: https://github.com/JoelMarcey
+    image_url: https://github.com/JoelMarcey.png
+  - name: Sébastien Lorber
+    title: Docusaurus maintainer
+    url: https://sebastienlorber.com
+    image_url: https://github.com/slorber.png
+tags: [hello, docusaurus-v2]
+image: https://i.imgur.com/mErPwqL.png
+hide_table_of_contents: false
+---
+Welcome to this blog. This blog is created with [**Docusaurus 2**](https://docusaurus.io/).
+
+<!--truncate-->
+
+This is my first post on Docusaurus 2.
+
+A whole bunch of exploration to follow.
+```
+
+## Global authors​
+For regular blog post authors, it can be tedious to maintain authors information inlined in each blog post.
+
+It is possible declare those authors globally in a configuration file:
+
+```markdown title="website/blog/authors.yml"
+jmarcey:
+  name: Joel Marcey
+  title: Co-creator of Docusaurus 1
+  url: https://github.com/JoelMarcey
+  image_url: https://github.com/JoelMarcey.png
+
+slorber:
+  name: Sébastien Lorber
+  title: Docusaurus maintainer
+  url: https://sebastienlorber.com
+  image_url: https://github.com/slorber.png
+```
+
+In blog posts FrontMatter, you can reference the authors declared in the global configuration file:
+
+Single author :
+
+```markdown title="my-blog-post.md"
+---
+authors: jmarcey
+---
+```
+
+Multi authors :
+
+```markdown title="my-blog-post.md"
+---
+authors: [jmarcey, slorber]
+---
+```
