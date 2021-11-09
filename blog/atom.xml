@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://dlabs-mobile-apps.github.io/blog</id>
+    <title>Dlabs Mobile Dev Team Blog</title>
+    <updated>2021-11-09T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://dlabs-mobile-apps.github.io/blog"/>
+    <subtitle>Dlabs Mobile Dev Team Blog</subtitle>
+    <icon>https://dlabs-mobile-apps.github.io/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[How to Create Blog Post]]></title>
+        <id>how-to-create-blog-post</id>
+        <link href="https://dlabs-mobile-apps.github.io/blog/how-to-create-blog-post"/>
+        <updated>2021-11-09T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Adding posts​]]></summary>
+        <content type="html"><![CDATA[<h2>Adding posts​</h2><p>To publish in the blog, create a Markdown file within the blog directory.</p><p>For example, create a file at website/blog/2021-08-05-hello-blog.md</p><pre><code class="language-markdown" metastring="title=&quot;website/blog/2021-08-05-hello-blog.md&quot;" title="&quot;website/blog/2021-08-05-hello-blog.md&quot;">---
+title: Welcome Docusaurus v2
+description: This is my first post on Docusaurus 2.
+slug: welcome-docusaurus-v2
+authors:
+  - name: Joel Marcey
+    title: Co-creator of Docusaurus 1
+    url: https://github.com/JoelMarcey
+    image_url: https://github.com/JoelMarcey.png
+  - name: Sébastien Lorber
+    title: Docusaurus maintainer
+    url: https://sebastienlorber.com
+    image_url: https://github.com/slorber.png
+tags: [hello, docusaurus-v2]
+image: https://i.imgur.com/mErPwqL.png
+hide_table_of_contents: false
+---
+Welcome to this blog. This blog is created with [**Docusaurus 2**](https://docusaurus.io/).
+
+&lt;!--truncate--&gt;
+
+This is my first post on Docusaurus 2.
+
+A whole bunch of exploration to follow.
+</code></pre><h2>Global authors​</h2><p>For regular blog post authors, it can be tedious to maintain authors information inlined in each blog post.</p><p>It is possible declare those authors globally in a configuration file:</p><pre><code class="language-markdown" metastring="title=&quot;website/blog/authors.yml&quot;" title="&quot;website/blog/authors.yml&quot;">jmarcey:
+  name: Joel Marcey
+  title: Co-creator of Docusaurus 1
+  url: https://github.com/JoelMarcey
+  image_url: https://github.com/JoelMarcey.png
+
+slorber:
+  name: Sébastien Lorber
+  title: Docusaurus maintainer
+  url: https://sebastienlorber.com
+  image_url: https://github.com/slorber.png
+</code></pre><p>In blog posts FrontMatter, you can reference the authors declared in the global configuration file:</p><p>Single author :</p><pre><code class="language-markdown" metastring="title=&quot;my-blog-post.md&quot;" title="&quot;my-blog-post.md&quot;">---
+authors: jmarcey
+---
+</code></pre><p>Multi authors :</p><pre><code class="language-markdown" metastring="title=&quot;my-blog-post.md&quot;" title="&quot;my-blog-post.md&quot;">---
+authors: [jmarcey, slorber]
+---
+</code></pre>]]></content>
+        <author>
+            <name>M. Irfan Hidayat</name>
+            <uri>https://github.com/irufano</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[How to Create Docs Page]]></title>
+        <id>create-</id>
+        <link href="https://dlabs-mobile-apps.github.io/blog/create-"/>
+        <updated>2021-11-09T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Create a Markdown file, greeting.md, and place it under the docs directory.]]></summary>
+        <content type="html"><![CDATA[<p>Create a Markdown file, greeting.md, and place it under the docs directory.</p><pre><code>website # root directory of your site
+├── docs
+│   └── greeting.md
+├── src
+│   └── pages
+├── docusaurus.config.js
+├── ...
+</code></pre><h2>Example</h2><p>If you not define title system will take the head # of your md file to become title.</p><p>:::tip
+<code>sidebar_position</code> is menu order at sidebar.
+:::</p><pre><code class="language-markdown">---
+sidebar_position: 1
+---
+
+# introduction 
+
+## Hello from Docusaurus
+
+Are you ready to create the documentation site for your open source project?
+
+### Headers
+
+will show up on the table of contents on the upper right
+
+So that your users will know what this page is all about without scrolling down or even without reading too much.
+
+### Only h2 and h3 will be in the toc by default.
+
+You can configure the TOC heading levels either per-document or in the theme configuration.
+
+The headers are well-spaced so that the hierarchy is clear.
+
+- lists will help you
+- present the key points
+- that you want your users to remember
+  - and you may nest them
+    - multiple times
+
+### Custom id headers {#custom-id}
+
+</code></pre><h2>Doc tags​</h2><p>Optionally, you can add tags to your doc pages, which introduces another dimension of categorization in addition to the docs sidebar. Tags are passed in the front matter as a list of labels:</p><pre><code class="language-markdown">---
+id: doc-with-tags
+title: A doc with tags
+tags:
+  - Demo
+  - Getting started
+---
+</code></pre>]]></content>
+        <author>
+            <name>M. Irfan Hidayat</name>
+            <uri>https://github.com/irufano</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Welcome to Blog]]></title>
+        <id>welcome</id>
+        <link href="https://dlabs-mobile-apps.github.io/blog/welcome"/>
+        <updated>2021-11-09T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Simply add Markdown files (or folders) to the blog directory.]]></summary>
+        <content type="html"><![CDATA[<p>Simply add Markdown files (or folders) to the <code>blog</code> directory.</p><p>Regular blog authors can be added to <code>authors.yml</code>.</p><p>The blog post date can be extracted from filenames, such as:</p><ul><li><code>2021-05-30-welcome.md</code></li><li><code>2021-05-30-welcome/index.md</code></li></ul><p>A blog post folder can be convenient to co-locate blog post images:</p><p><img src="./docusaurus-plushie-banner.jpeg" alt="Docusaurus Plushie"/></p><p>The blog supports tags as well!</p><p>:::tip</p><p>Use the power of React to create interactive blog posts.</p><pre><code class="language-js">&lt;button onClick={() =&gt; alert(&#x27;button clicked!&#x27;)}&gt;Click me!&lt;/button&gt;
+</code></pre><button>Click me!</button><p>:::</p>]]></content>
+        <author>
+            <name>M. Irfan Hidayat</name>
+            <uri>https://github.com/irufano</uri>
+        </author>
+    </entry>
+</feed>
