@@ -8,11 +8,11 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "Dlabs Mobile Dev Team",
   tagline: "Welcome to dlabs mobile dev team",
-  
+
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
-  
+
   organizationName: "dlabs-mobile-apps", // Usually your GitHub org/user name.
   projectName: "dlabs-mobile-apps.github.io", // Usually your repo name.
   url: "https://dlabs-mobile-apps.github.io",
@@ -48,6 +48,19 @@ const config = {
         path: "design-system-docs",
         routeBasePath: "design-system-docs",
         sidebarPath: require.resolve("./sidebars.js"),
+      },
+    ],
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      {
+        // ... Your options.
+        // `hashed` is recommended as long-term-cache of index file is possible.
+        hashed: true,
+        // For Docs using Chinese, The `language` is recommended to set to:
+        // ```
+        // language: ["en", "zh"],
+        // ```
+        // When applying `zh` in language, please install `nodejieba` in your project.
       },
     ],
   ],
