@@ -8,13 +8,15 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "Dlabs Mobile Dev Team",
   tagline: "Welcome to dlabs mobile dev team",
-  url: "https://dlabs-mobile-apps.github.io",
-  baseUrl: "/",
+  
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
   organizationName: "dlabs-mobile-apps", // Usually your GitHub org/user name.
-  projectName: "dlabs-mobile-apps", // Usually your repo name.
+  projectName: "dlabs-mobile-apps.github.io", // Usually your repo name.
+  url: "https://dlabs-mobile-apps.github.io",
+  baseUrl: "/",
+  trailingSlash: false,
   deploymentBranch: "main",
 
   presets: [
