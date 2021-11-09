@@ -18,7 +18,7 @@ const config = {
   url: "https://dlabs-mobile-apps.github.io",
   baseUrl: "/",
   trailingSlash: false,
-  deploymentBranch: "main",
+  deploymentBranch: "prod",
 
   presets: [
     [
