@@ -1,3 +1,7 @@
+# IMPORTANT
+- manage repo only on branch dev
+- branch `gh-pages` is for deployment/prod
+
 # Website
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
