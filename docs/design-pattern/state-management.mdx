@@ -1,0 +1,265 @@
+---
+sidebar_position: 1
+tags: 
+ - design pattern
+description: State Management
+---
+
+# State Management
+
+Our project using BLoC state management, which created by Felix Angelov. You can see the documentation [here](https://bloclibrary.dev). 
+
+## BLoC 
+A Bloc is a more advanced class which relies on events to trigger state changes rather than functions. Bloc also extends BlocBase which means it has a similar public API as Cubit. However, rather than calling a function on a Bloc and directly emitting a new state, Blocs receive events and convert the incoming events into outgoing states.
+
+![Docusaurus Plushie](./bloc_architecture_full.png)
+
+There are 3 component on bloc state management, there are:
+1. State
+2. Event
+3. Bloc
+
+### State
+
+States represent the information to be processed by any widget. A widget changes itself based on the state.
+
+```js title="login_state.dart"
+abstract class LoginState extends Equatable {
+  const LoginState();
+
+  @override
+  List<Object> get props => [];
+}
+
+class LoginInitial extends LoginState {}
+
+class LoginLoading extends LoginState {}
+
+class LoginSuccess extends LoginState {
+  final LoginData data;
+  final bool isFirstLogin;
+
+  LoginSuccess({required this.data, this.isFirstLogin = false});
+}
+
+class LoginError extends LoginState {
+  final String? message;
+  final int? statusCode;
+
+  LoginError({this.message, this.statusCode});
+}
+
+```
+
+### Event
+
+Events tell BLoC to do something. An event can be fired from anywhere, such as from a UI widget. External events, such as changes in network connectivity, changes in sensor readings, etc.
+
+```js title="login_event.dart"
+abstract class LoginEvent extends Equatable {
+  const LoginEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class EmailChanged extends LoginEvent {
+  final String? email;
+
+  EmailChanged({this.email});
+
+  @override
+  List<Object> get props => [email!];
+
+  @override
+  bool get stringify => true;
+}
+
+class PasswordChanged extends LoginEvent {
+  final String? password;
+
+  PasswordChanged({this.password});
+
+  @override
+  List<Object> get props => [password!];
+
+  @override
+  bool get stringify => true;
+}
+
+class Login extends LoginEvent {}
+
+```
+
+### Bloc
+
+BLoC is a man in the middle. All the business logic sits inside the BLoC file. It simply accepts events, performs the logic, and outputs the states.
+
+```js title="login_bloc"
+class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  LoginBloc() : super(LoginInitial()) {
+    on<EmailChanged>(_mapEmail);
+    on<PasswordChanged>(_mapPassword);
+    on<Login>(_validation);
+  }
+
+  DeviceInfoService _deviceInfoService = locator<DeviceInfoService>();
+
+  String? email = '';
+  String? password = '';
+
+  String? errorEmail;
+
+  Future _mapEmail(
+    EmailChanged event,
+    Emitter<LoginState> emit,
+  ) async {
+    email = event.email!;
+  }
+
+  Future _mapPassword(
+    PasswordChanged event,
+    Emitter<LoginState> emit,
+  ) async {
+    password = event.password!;
+  }
+
+  Future _validation(
+    Login event,
+    Emitter<LoginState> emit,
+  ) async {
+    bool emailIsValid = isEmailValid(email!);
+
+    if (email!.isEmpty) {
+      errorEmail = Strings.emailEmpty;
+      emit(LoginError(message: errorEmail));
+      emit(LoginInitial());
+    } else if (password!.isEmpty) {
+      emit(LoginError(message: Strings.passwordEmpty));
+      emit(LoginInitial());
+    } else if (!emailIsValid) {
+      errorEmail = Strings.wrongEmailFormat;
+      emit(LoginError(message: Strings.wrongEmailFormat));
+    } else {
+      errorEmail = null;
+      await _login(event, emit);
+    }
+  }
+
+  Future _login(
+    Login event,
+    Emitter<LoginState> emit,
+  ) async {
+    try {
+      emit(LoginLoading());
+
+      var data = LoginRequest(email: email!, password: password!);
+      Result<LoginResponse> result = await AuthRepository.login(data);
+
+      if (result.data?.status == ResultType.Error.value) {
+        // error from status code 200
+        emit(LoginError(
+          message: result.data?.info?.message ?? Strings.unknownErrorMessage,
+        ));
+        return;
+      }
+      if (result.type == ResultType.Success) {
+        // set session
+        await setSessionCurrentUser(result.data!.data!);
+
+        // success login 
+        print(result.message);
+        emit(LoginSuccess(
+          data: result.data!.data!,
+          isFirstLogin: result.data!.data!.paramData!.isFirstLogin!,
+        ));
+      }
+    } catch (e) {
+      var result = Result.fromError(e);
+      emit(LoginError(message: result.message));
+    }
+  }
+
+}
+
+```
+
+
+## Handle State Changes on UI
+You can handle change of states using :
+
+1. BlocBuilder
+2. BlocListener
+3. BlocConsumer
+
+### BlocBuilder
+This is used when we want to draw a Widget based on what is the current State. In the following example a new “text” gets drawn every time the state changes.
+
+```js
+BlocBuilder(
+  bloc: _ordersBloc, 
+  builder: (context, state) {
+    if (state is OrdersState.OrderCompleted) {
+      return Container(child: Text('Order Completed!'));
+    } else if (OrdersState.OrderInProgress) {
+      return Container(child: Text('In Progress'));
+    } else if (OrdersState.OrderRequested) {
+      return Container(child: Text('A customer placed an order!'));
+    } else {
+      return Container(child: Text('Waiting for an order'));
+    }
+  },
+);
+```
+
+:::note
+- builder (*Required*): This method is most important, this returns the widget that we want to draw based on the current state. i.e. The state is “OrderCompleted” then it returns “Text(‘Order Completed!’)”
+:::
+
+### BlocListener
+This is just a listener not a builder (like the above), that means that its job is keep listening for new changes in the state and not to return a widget. Each time the state changes to a new state this listener will receive a notification that the state has changed and then you can trigger an action (e.g. Show pop up, show toast, send a notification, consume an endpoint, analytics, etc).
+
+So what gets draw in the screen doesn’t depends of what we receive in the listener, i.e. it doesn’t depend of the actual state (OrdersState), it reacts depending of the state.
+
+```js
+BlocListener(
+  bloc: _ordersBloc,
+  listener: (context, state) {
+    // Navigate to next screen
+    Navigator.of(context).pushNamed('OrderCompletedScreen');
+  },
+  child: Container(child: Text('Always draw this text!')),
+);
+```
+
+:::note
+- listener: This method is most important, it listens for new changes in the state and execute actions based on the received state. For example: API requests, call analytics stuff, etc.
+:::
+
+### BlocConsumer
+This is a mix between “BlocListener” and “BlocBuilder”. This is used when we want to draw something based on the current state and execute some actions depending on the new arriving states.
+
+```js
+BlocConsumer(
+  bloc: _ordersBloc,
+  listener: (context, state) {
+    if (state is OrdersState.OrdersCompleted) {
+      // Navigate to next screen
+      Navigator.of(context).pushNamed('OrderCompletedScreen');
+    } else if (state is OrdersState.OrderRefunded) {
+      // Report to analytics
+      Analytics.reportRefunded(state.orderId);
+    }
+  },
+  builder: (context, state) {
+    if (state is OrdersState.OrderCompleted) {
+      return Container(child: Text('Order Served!'));
+    } else if (OrdersState.OrderInProgress) {
+      return Container(child: Text('In Progress'));
+    } else {
+      return Container(child: Text('No State'));
+    }
+  },
+);
+```
+
