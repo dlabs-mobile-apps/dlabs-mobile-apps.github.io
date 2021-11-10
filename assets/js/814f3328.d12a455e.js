@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmobile_dev_docs=self.webpackChunkmobile_dev_docs||[]).push([[2535],{5641:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"How to Create Blog Post","permalink":"/blog/how-to-create-blog-post"},{"title":"How to Create Docs Page","permalink":"/blog/create-"},{"title":"Welcome to Blog","permalink":"/blog/welcome"}]}')}}]);

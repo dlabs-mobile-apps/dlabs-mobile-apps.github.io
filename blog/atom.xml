@@ -62,8 +62,8 @@ authors: [jmarcey, slorber]
     </entry>
     <entry>
         <title type="html"><![CDATA[How to Create Docs Page]]></title>
-        <id>create-</id>
-        <link href="https://dlabs-mobile-apps.github.io/blog/create-"/>
+        <id>how-to-create-docs-page</id>
+        <link href="https://dlabs-mobile-apps.github.io/blog/how-to-create-docs-page"/>
         <updated>2021-11-09T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Create a Markdown file, greeting.md, and place it under the docs directory.]]></summary>
         <content type="html"><![CDATA[<p>Create a Markdown file, greeting.md, and place it under the docs directory.</p><pre><code>website # root directory of your site
