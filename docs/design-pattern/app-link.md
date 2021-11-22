@@ -47,7 +47,7 @@ App/Universal link (universal link for ios, app link for android) is technique t
   :::info
   - `android-fingerprint` can be either debug or release fingerprint
   - get `android-debug-fingerprint` from ```keytool -exportcert -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore```
-  - to manage keystore checkout [https://gist.github.com/irufano/5f9e9638dcef0fdad1c81be947a72b47](https://gist.github.com/irufano/5f9e9638dcef0fdad1c81be947a72b47')
+  - to manage keystore checkout [https://gist.github.com/irufano/5f9e9638dcef0fdad1c81be947a72b47](https://gist.github.com/irufano/5f9e9638dcef0fdad1c81be947a72b47)
   :::
 
 ### Android Section
@@ -134,5 +134,5 @@ App/Universal link (universal link for ios, app link for android) is technique t
       ```bash
       run xcrun simctl openurl booted 'https://<host><website-path-after-host(if any)>' 
       ```
-      
+
     - the app should open if app is installed
