@@ -1,3 +1,10 @@
+---
+sidebar_position: 4
+tags: 
+ - android
+description: Release Android
+---
+
 # Release your Android app
 ## Intro
 When you’re ready to prepare a release version of your app, for example to [publish to the Google Play Store](https://developer.android.com/distribute/googleplay/start), this page can help.
