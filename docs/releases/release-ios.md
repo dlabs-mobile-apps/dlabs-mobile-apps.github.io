@@ -16,7 +16,7 @@ In order to publish your app to the App Store, you must first enroll in the Appl
 ## Registering your app
 Registering your app involves two steps: registering a unique Bundle ID, and creating an application record on App Store Connect.
 
-For a detailed overview of App Store Connect, see the App Store Connect guide.
+For a detailed overview of App Store Connect, see the [App Store Connect](https://developer.apple.com/support/app-store-connect/) guide.
 
 ### Register a Bundle ID
 Every iOS application is associated with a Bundle ID, a unique identifier registered with Apple. To register a Bundle ID for your app, follow these steps:
