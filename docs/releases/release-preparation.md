@@ -31,6 +31,12 @@ The **Screenshoots/Graphics** can be designed first by UI/UX team for a better p
         - PNG or JPEG
         - 1,024 px by 500 px
         - Up to 1 MB
+  
+          Sample Feature graphic: 
+          :::warning
+          if preview use frame, please use android device frame
+          :::
+          ![Sample](./feature-sample.png)
    
     - Phone screenshots * :
         - Upload 2–8 phone screenshots
@@ -38,18 +44,39 @@ The **Screenshoots/Graphics** can be designed first by UI/UX team for a better p
         - 16:9 or 9:16 aspect ratio
         - Each side between 320 px and 3,840 px
         - Up to 8 MB per screenshot
+
+          Sample Phone screenshots:
+          :::warning
+          if preview use frame, please use android device frame
+          :::
+          ![Sample](./phone-ss-sample.png)
+
     - 7-inch tablet screenshots * :
         - Upload up to 8 7-inch tablet screenshots
         - PNG or JPEG
         - 16:9 or 9:16 aspect ratio
         - Each side between 320 px and 3,840 px
         - Up to 8 MB per screenshot
+
+        Sample 7-inch tablet screenshots:
+        :::warning
+        if preview use frame, please use android device frame
+        :::
+        ![Sample](./7-tablet-sample.png)
+
     - 10-inch tablet screenshots * :
         - Upload up to 8 10-inch tablet screenshots
         - PNG or JPEG
         - 16:9 or 9:16 aspect ratio
         - Each side between 320 px and 3,840 px
         - Up to 8 MB per screenshot
+
+        Sample 10-inch tablet screenshots:
+        :::warning
+        if preview use frame, please use android device frame
+        :::
+        ![Sample](./10-tablet-sample.png)
+
     - Video :
         - A youtube video URL 
 
@@ -62,11 +89,31 @@ The **Screenshoots/Graphics** can be designed first by UI/UX team for a better p
 - Name * : Name of the app as seen by users
 - Description *: A description of your app detailing features and functionality (up to 4000 characters)
 - Keywords *: (separated keyword with comma)
-- Screenshots * :
-    - upload 4 to 10 screenshots (with real screenshots/mockup that similar to app)
-        - iPhone 6.5” display (ex. iPhone 12 Pro Max) 1242x2688 px
-        - iPhone 5.5” display (ex. iPhone 8 Plus) 1242x2208 px
-        - iPad Pro 12.9” display (ex. iPad Pro 3rd Generation) 2048x2732 px
+- Screenshots * : upload 4 to 10 screenshots (with real screenshots/mockup that similar to app)
+    - iPhone 6.5” display (ex. iPhone 12 Pro Max) 1242x2688 px
+  
+    Sample 6.5” screenshots:
+    :::warning
+    if preview use frame, please use **iOS device frame**
+    :::
+    ![Sample](./6.5-sample.png)
+
+    - iPhone 5.5” display (ex. iPhone 8 Plus) 1242x2208 px
+
+    Sample 5.5” screenshots:
+    :::warning
+    if preview use frame, please use **iOS device frame**
+    :::
+    ![Sample](./5.5-sample.png)
+
+    - iPad Pro 12.9” display (ex. iPad Pro 3rd Generation) 2048x2732 px
+  
+    Sample 12.9” screenshots:
+    :::warning
+    if preview use frame, please use **iOS device frame**
+    :::
+    ![Sample](./5.5-sample.png)
+
 - Support Url * : a web page that show contact information of the app
 - Privacy Policy Url * : a web page that containing your app’s privacy policy
 - Testing account * : username & password for apple reviewer
