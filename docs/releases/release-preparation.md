@@ -112,7 +112,7 @@ The **Screenshoots/Graphics** can be designed first by UI/UX team for a better p
     :::warning
     if preview use frame, please use **iOS device frame**
     :::
-    ![Sample](./5.5-sample.png)
+    ![Sample](./12.9-sample.png)
 
 - Support Url * : a web page that show contact information of the app
 - Privacy Policy Url * : a web page that containing your app’s privacy policy
