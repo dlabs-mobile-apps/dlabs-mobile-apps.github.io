@@ -19,6 +19,7 @@ The **Screenshoots/Graphics** can be designed first by UI/UX team for a better p
 - App name *  (This how your app will appear on Google Play)
 - Short Description *
 - Full Description * 
+- Privacy Policy Url * : Add a privacy policy to your store listing to help provide transparency about how you treat sensitive user and device data
 - Graphics:
     - App icon * :        
         - Your app icon as shown on Google Play. Don’t use badges or text that suggest store ranking, price or Google Play categories (such as "top", "new", or "sale").
