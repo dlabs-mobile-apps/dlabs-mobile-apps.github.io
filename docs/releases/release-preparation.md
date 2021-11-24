@@ -2,12 +2,12 @@
 sidebar_position: 3
 tags: 
  - releases
-description: Release Preparation for Publishing Android to PlayStore and iOS to AppStore. 
+description: Release Preparation for Publishing Android to Google Play and iOS to App Store. 
 ---
 
 # Release Preparation
 ## Introduction
-It is very important to collect all of the information you need to submit before you start publish app to appstore / playstore. This information is provide by ***product owner*** and then will be given to mobile dev team. 
+It is very important to collect all of the information you need to submit before you start publish app to App Store / Google Play. This information is provide by ***product owner*** and then will be given to mobile dev team. 
 
 The following is the information that must be provided for both iOS and Android:
 
@@ -15,7 +15,7 @@ The following is the information that must be provided for both iOS and Android:
 The **Screenshoots/Graphics** can be designed first by UI/UX team for a better preview.
 :::
 
-## PlayStore Preparation (Android)
+## Google Play Preparation (Android)
 - App name *  (This how your app will appear on Google Play)
 - Short Description *
 - Full Description * 
@@ -86,7 +86,7 @@ The **Screenshoots/Graphics** can be designed first by UI/UX team for a better p
 :::
 
 
-## AppStore Preparation (iOS)
+## App Store Preparation (iOS)
 - Name * : Name of the app as seen by users
 - Description *: A description of your app detailing features and functionality (up to 4000 characters)
 - Keywords *: (separated keyword with comma)
