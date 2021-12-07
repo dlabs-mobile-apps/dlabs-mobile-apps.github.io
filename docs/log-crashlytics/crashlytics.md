@@ -7,7 +7,7 @@ description: Log & Crashlytics
 
 # Crashlytics
 
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+Test Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
 
 ```bash
 echo "coming soon"
