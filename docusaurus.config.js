@@ -51,6 +51,15 @@ const config = {
       },
     ],
     [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "feedback",
+        path: "feedback",
+        routeBasePath: "feedback",
+        sidebarPath: require.resolve("./sidebars.js"),
+      },
+    ],
+    [
       require.resolve("@easyops-cn/docusaurus-search-local"),
       {
         // ... Your options.
@@ -85,6 +94,12 @@ const config = {
           position: "left",
           label: "Design System",
           activeBaseRegex: `/design-system-docs/`,
+        },
+        {
+          to: "/feedback/form",
+          position: "left",
+          label: "Feedback",
+          activeBaseRegex: `/feedback/`,
         },
       ],
     },
