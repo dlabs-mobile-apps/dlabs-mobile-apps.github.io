@@ -40,18 +40,18 @@ Each of these branches have a specific purpose and are bound to strict rules as 
 
 - May branch off from:
   
-```
+```bash
 development
 ```
 
 - Must merge back into:
   
-```
+```bash
 development
 ```
 
 - Branch naming convention:
-```sh
+```bash
 feature-TicketNumber]
 
 # example:
@@ -62,7 +62,7 @@ Feature branches are used when developing a new feature which has the potential 
 
 #### Creating a feature branch 
 When starting work on a new feature, branch off from the develop branch.
-```sh
+```bash
 $ git checkout -b feature-[TicketNumber] development
 # Switched to a new branch "feature-[TicketNumber]"
 ```
@@ -71,7 +71,7 @@ $ git checkout -b feature-[TicketNumber] development
 For `developer` you can `direct to pull request` on development branch and waiting for review.
 
 For `reviewer` finished features may be merged into the develop branch to definitely add them to the upcoming release:
-```sh
+```bash
 $ git checkout development
 # Switched to branch 'development'
 
@@ -88,7 +88,7 @@ $ git push -f origin development
 
 - May branch off from:
   
-```sh
+```bash
 # BETA RELEASE
 development
 
@@ -98,7 +98,7 @@ development or staging
 
 - Must merge back into:
   
-```sh
+```bash
 # BETA RELEASE
 development & staging
 
@@ -107,7 +107,7 @@ development, staging & production
 ```
 
 - Branch naming convention:
-```sh
+```bash
 # beta release
 release-[betaFlag]-[versionNumber]-b[buildNumber]
 
@@ -128,7 +128,7 @@ Beta release branches are created from the development branch. The version is ba
 | MINOR  | 1.2.0           | 37                   | 1.3.0        | 38                            |
 | PATCH  | 1.2.0           | 37                   | 1.2.1        | 38                            |
 
-```sh
+```bash
 $ git checkout -b release-beta-1.2.1 development
 # Switched to a new branch "release-beta-1.2.1"
 
@@ -142,7 +142,7 @@ $ git commit -a -m "Beta LearningHub v1.2.1 b38"
 
 Merge into staging first:
 
-```sh
+```bash
 $ git checkout staging
 # Switched to branch 'staging'
 
@@ -151,7 +151,7 @@ $ git rebase release-beta-1.2.1
 ```
 
 then merge into development :
-```sh
+```bash
 $ git checkout development
 # Switched to branch 'development'
 
@@ -163,7 +163,7 @@ This step may well lead to a merge conflict (probably even, since we have change
 
 Now we are really done and the beta release branch may be removed, since we don’t need it anymore:
 
-```sh
+```bash
 $ git branch -d release-beta-1.2.1
 # delete branch 
 ```
@@ -172,7 +172,7 @@ $ git branch -d release-beta-1.2.1
 #### Creating a production release branch 
 The different between production and beta is flag `beta`. If you want release from staging then create branch based on staging branch else if you want release from development then create branch from development branch.
 
-```sh
+```bash
 # FROM DEV
 $ git checkout -b release-1.2.1 development
 # Switched to a new branch "release-1.2.1"
@@ -191,7 +191,7 @@ $ git commit -a -m "LearningHub v1.2.1 b38"
 
 Merge into production first:
 
-```sh
+```bash
 $ git checkout production
 # Switched to branch 'production'
 
@@ -203,7 +203,7 @@ $ git tag -a v1.2.1-b38
 ```
 
 then merge into staging:
-```sh
+```bash
 # staging
 $ git checkout staging
 $ git rebase release-beta-1.2.1
@@ -211,7 +211,7 @@ $ git rebase release-beta-1.2.1
 ```
 
 land last merge into development :
-```sh
+```bash
 # development
 $ git checkout development
 $ git rebase release-beta-1.2.1
@@ -221,7 +221,7 @@ These step may well lead to a merge conflict (probably even, since we have chang
 
 Now we are really done and the prod release branch may be removed, since we don’t need it anymore:
 
-```sh
+```bash
 $ git branch -d release-1.2.1
 # delete branch 
 ```
@@ -230,18 +230,18 @@ $ git branch -d release-1.2.1
 
 - May branch off from:
   
-```sh
+```bash
 production
 ```
 
 - Must merge back into:
   
-```sh
+```bash
 production & development
 ```
 
 - Branch naming convention:
-```sh
+```bash
 hotfix-[nextVersionNumber]
 
 # example:
@@ -253,7 +253,7 @@ Maintenance or “hotfix” branches are used to quickly patch production releas
 #### Creating a production release branch 
 Hotfix branches are created from the `production` branch. For example, say version 1.2.1 is the current production release running live and causing troubles due to a severe bug so the next version is 1.2.2 because it is patch update. But changes on develop are yet unstable. We may then branch off a hotfix branch and start fixing the problem:
 
-```sh
+```bash
 $ git checkout -b hotfix-1.2.2 production
 
 # modified your version on project and others config manually or using script then commit
@@ -264,7 +264,7 @@ $ git commit -a -m "LearningHub v1.2.2 b39"
 
 Then, fix the bug and commit the fix in one or more separate commits.
 
-```sh
+```bash
 # example: 
 $ git commit -a -m "Fixed severe production problem"
 ```
@@ -273,7 +273,7 @@ $ git commit -a -m "Fixed severe production problem"
 
 Merge into production first:
 
-```sh
+```bash
 $ git checkout production
 # Switched to branch 'production'
 
@@ -285,7 +285,7 @@ $ git tag -a v1.2.2-b39
 ```
 
 then merge into development :
-```sh
+```bash
 $ git checkout development
 # Switched to branch 'development'
 
@@ -299,7 +299,7 @@ The one exception to the rule here is that, `when a production release branch cu
 
 Finally, remove the temporary branch:
 
-```sh
+```bash
 $ git branch -d hotfix-1.2.2
 # delete branch 
 ```
