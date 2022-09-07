@@ -2,10 +2,12 @@
 sidebar_position: 1
 tags: 
  - repository
-description: GitFlow
+title: GitFlow
+description: GitFlow is an alternative Git branching model that involves the use of feature branches and multiple primary branches. It was first published and made popular by [Vincent Driessen at nvie](https://nvie.com/posts/a-successful-git-branching-model). We use `GitFlow` as branching strategies for better manage multiple version of project.
+
 ---
 # GitFlow with Rebase Strategies
-GitFlow is an alternative Git branching model that involves the use of feature branches and multiple primary branches. It was first published and made popular by [Vincent Driessen at nvie](https://nvie.com/posts/a-successful-git-branching-model). We use `GitFlow` as branching strategies for better manage multiple version of project. We use GitFlow with rebase strategies instead of using merge because when use merge if the repo has a lot of commits it can be hard to read so 
+GitFlow is an alternative Git branching model that involves the use of feature branches and multiple primary branches. It was first published and made popular by [Vincent Driessen at nvie](https://nvie.com/posts/a-successful-git-branching-model). We use `GitFlow` as branching strategies for better manage multiple version of project. We use GitFlow with rebase strategies instead of using merge because when use merge if the repo has a lot of commits it can be hard to read.
 
 ## Main Branchs
 The main branch provided based on service url (*API Service*). There are:
@@ -38,23 +40,23 @@ Each of these branches have a specific purpose and are bound to strict rules as 
 
 - May branch off from:
   
-  ```
-  development
-  ```
+```
+development
+```
 
 - Must merge back into:
   
-  ```
-  development
-  ```
+```
+development
+```
 
 - Branch naming convention:
-  ```sh
-  feature-TicketNumber]
+```sh
+feature-TicketNumber]
 
-  # example:
-  feature-DY79
-  ```
+# example:
+feature-DY79
+```
 
 Feature branches are used when developing a new feature which has the potential of a development lifespan longer than a single deployment. When starting development, the deployment in which this feature will be released may not be known. No matter when the feature branch will be finished, it will always be merged back into the <b>development</b> branch.
 
@@ -86,36 +88,36 @@ $ git push -f origin development
 
 - May branch off from:
   
-  ```sh
-  # BETA RELEASE
-  development
+```sh
+# BETA RELEASE
+development
 
-  # PROD RELEASE
-  development or staging
-  ```
+# PROD RELEASE
+development or staging
+```
 
 - Must merge back into:
   
-  ```sh
-  # BETA RELEASE
-  development & staging
+```sh
+# BETA RELEASE
+development & staging
 
-  # PROD RELEASE
-  development, staging & production
-  ```
+# PROD RELEASE
+development, staging & production
+```
 
 - Branch naming convention:
-  ```sh
-  # beta release
-  release-[betaFlag]-[versionNumber]-b[buildNumber]
+```sh
+# beta release
+release-[betaFlag]-[versionNumber]-b[buildNumber]
 
-  # prod release
-  release-[versionNumber]-b[buildNumber]
+# prod release
+release-[versionNumber]-b[buildNumber]
 
-  # example:
-  release-beta-1.2.0-b79
-  release-3.2.2-b107
-  ```
+# example:
+release-beta-1.2.0-b79
+release-3.2.2-b107
+```
 
 #### Creating a beta release branch 
 Beta release branches are created from the development branch. The version is based on major, minor or patch update for detail yo can see versioning [here](/docs/releases/build-version). For example, say current version are 1.2.0 and we have patch update then we have decided that will become version 1.2.1, you can see comparison below:
@@ -228,25 +230,25 @@ $ git branch -d release-1.2.1
 
 - May branch off from:
   
-  ```sh
-  production
-  ```
+```sh
+production
+```
 
 - Must merge back into:
   
-  ```sh
-  production & development
-  ```
+```sh
+production & development
+```
 
 - Branch naming convention:
-  ```sh
-  hotfix-[nextVersionNumber]
+```sh
+hotfix-[nextVersionNumber]
 
-  # example:
-  hotfix-3.2.3
-  ```
+# example:
+hotfix-3.2.3
+```
 
-  Maintenance or “hotfix” branches are used to quickly patch production releases. Hotfix branches are a lot like release branches and feature branches except they're based on main instead of develop. This is the only branch that should fork directly off of `production`. As soon as the fix is complete, it should be merged into both `production` and `development`, and main should be tagged with an updated version number.
+Maintenance or “hotfix” branches are used to quickly patch production releases. Hotfix branches are a lot like release branches and feature branches except they're based on main instead of develop. This is the only branch that should fork directly off of `production`. As soon as the fix is complete, it should be merged into both `production` and `development`, and main should be tagged with an updated version number.
 
 #### Creating a production release branch 
 Hotfix branches are created from the `production` branch. For example, say version 1.2.1 is the current production release running live and causing troubles due to a severe bug so the next version is 1.2.2 because it is patch update. But changes on develop are yet unstable. We may then branch off a hotfix branch and start fixing the problem:
@@ -302,5 +304,5 @@ $ git branch -d hotfix-1.2.2
 # delete branch 
 ```
 
-### Git Bash
+## Git Bash
 There are some git operation that usually used to manage repository on mobile project, so that the repository is neater. You can see [git bash here](/docs/repository/git-bash).
