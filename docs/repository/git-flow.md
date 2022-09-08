@@ -106,7 +106,7 @@ development or staging
 development & staging
 
 # PROD RELEASE
-development, staging & production
+development & production
 ```
 
 - Branch naming convention:
@@ -205,15 +205,7 @@ $ git rebase release-1.2.1
 $ git tag -a v1.2.1-b38
 ```
 
-then merge into staging:
-```bash
-# staging
-$ git checkout staging
-$ git rebase release-beta-1.2.1
-# use rebase instead of merge
-```
-
-land last merge into development :
+then merge into development :
 ```bash
 # development
 $ git checkout development
@@ -222,7 +214,7 @@ $ git rebase release-beta-1.2.1
 ```
 These step may well lead to a merge conflict (probably even, since we have changed the version number). If so, fix it and commit.
 
-Now we are really done and the prod release branch may be removed, since we don’t need it anymore:
+Now we are really done and the prod release branch may be removed:
 
 ```bash
 $ git branch -d release-1.2.1
