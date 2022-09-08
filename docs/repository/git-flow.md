@@ -35,6 +35,7 @@ The different types of branches we may use are:
  1. Feature branches
  2. Release branches
  3. Hotfix branches
+ 4. Enhance branches
    
 Each of these branches have a specific purpose and are bound to strict rules as to which branches may be their originating branch and which branches must be their merge targets.
 
@@ -54,7 +55,7 @@ development
 
 - Branch naming convention:
 ```bash
-feature-TicketNumber]
+feature-[TicketNumber]
 
 # example:
 feature-DY79
@@ -363,6 +364,68 @@ Finally, remove the temporary branch:
 ```bash
 $ git branch -d hotfix-beta-1.2.2
 # delete branch 
+```
+
+### Enhance branches
+
+- May branch off from:
+  
+```bash
+development
+```
+
+- Must merge back into:
+  
+```bash
+development
+```
+
+- Branch naming convention:
+```bash
+enhance-[ShorDescription]
+
+# example:
+enhance-migration
+enhance-auth-optimation
+```
+
+Feature branches are used when developing a new feature which has the potential of a development lifespan longer than a single deployment. When starting development, the deployment in which this feature will be released may not be known. No matter when the feature branch will be finished, it will always be merged back into the <b>development</b> branch.
+
+#### Creating a enhance branch 
+When starting work on a new enhance, branch off from the develop branch.
+```bash
+$ git checkout -b enhance-[ShortDescription] development
+# Switched to a new branch "enhance-[ShorDescription]"
+```
+
+#### Creating a derivative enhance branch 
+Derivative enhance branch applied if developer who do enhance more than 1.
+This branch is from parent enhance-[ShorDescription] and must merge back to enhance-[ShorDescription]
+```bash
+$ git checkout -b enhance-[ShortDescription]-[developerName] enhance-[ShortDescription]
+# example -b enhance-migration-irufano
+
+# do enhancement then commit your task
+
+# checkout to enhance-[ShortDescription] and rebase enhance-[ShortDescription]-[developerName]
+
+$ git checkout enhance-[ShortDescription]
+$ git reabse enhance-[ShortDescription]-[developerName]
+```
+
+#### Finished enhance on development
+
+```bash
+$ git checkout development
+# Switched to branch 'development'
+
+$ git rebase enhance-[ShortDescription]
+# use rebase instead of merge
+
+$ git branch -d enhance-[ShortDescription]
+# Deleted branch enhance-[ShortDescription] (was 05e9557).
+
+$ git push -f origin development
 ```
 
 ## Git Bash
