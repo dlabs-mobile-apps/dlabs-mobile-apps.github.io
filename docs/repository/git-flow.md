@@ -2,7 +2,7 @@
 sidebar_position: 1
 tags: 
  - repository
-title: GitFlow
+title: Git Flow
 description: GitFlow is an alternative Git branching model that involves the use of feature branches and multiple primary branches. It was first published and made popular by [Vincent Driessen at nvie](https://nvie.com/posts/a-successful-git-branching-model). We use `GitFlow` as branching strategies for better manage multiple version of project.
 
 ---
@@ -12,20 +12,10 @@ GitFlow is an alternative Git branching model that involves the use of feature b
 ![GitFlow](./gitflow.png)
 
 ## Main Branchs
-The main branch provided based on service url (*API Service*). There are:
-
- 1. Production (*for production*)
- 2. staging (*for uat/testing*)
- 3. development (*for development*)
-
-### Production
-Production environment is an environment where the application is completely ready for use by end-users so that this environment must be guaranteed so that there are no major bugs that can cause large unwanted problems.
-
-### Staging 
-The staging environment is an environment where QA and the product owner will try out the application before it is released to end-users
+The main branch is the most used default branch. The main branch is `Development`.
 
 ### Development 
-The development environment is an environment where application developers will experiment with applications that have been made before being tested by QA and end users. This way, developers can prevent bugs before the app is ready for use by other users.
+The development is a branch where application developers will experiment with applications that have been made before being tested by QA and end users. This way, developers can prevent bugs before the app is ready for use by other users.
 
 
 ## Supporting Branches
@@ -33,9 +23,9 @@ Unlike the main branches, these branches always have a limited life time, since 
 
 The different types of branches we may use are:
  1. Feature branches
- 2. Release branches
- 3. Hotfix branches
- 4. Enhance branches
+ 2. Hotfix branches
+ 3. Enhance branches
+ 3. Release branches
    
 Each of these branches have a specific purpose and are bound to strict rules as to which branches may be their originating branch and which branches must be their merge targets.
 
@@ -55,10 +45,10 @@ development
 
 - Branch naming convention:
 ```bash
-feature-[TicketNumber]
+feature/[TicketNumber]
 
 # example:
-feature-DY79
+feature/DY-79
 ```
 
 Feature branches are used when developing a new feature which has the potential of a development lifespan longer than a single deployment. When starting development, the deployment in which this feature will be released may not be known. No matter when the feature branch will be finished, it will always be merged back into the <b>development</b> branch.
@@ -66,8 +56,8 @@ Feature branches are used when developing a new feature which has the potential 
 #### Creating a feature branch 
 When starting work on a new feature, branch off from the develop branch.
 ```bash
-$ git checkout -b feature-[TicketNumber] development
-# Switched to a new branch "feature-[TicketNumber]"
+$ git checkout -b feature/[TicketNumber] development
+# Switched to a new branch "feature/[TicketNumber]"
 ```
 
 #### Incorporating a finished feature on development
@@ -78,48 +68,51 @@ For `reviewer` finished features may be merged into the develop branch to defini
 $ git checkout development
 # Switched to branch 'development'
 
-$ git rebase feature-[TicketNumber]
+$ git rebase feature/[TicketNumber]
 # use rebase instead of merge
 
-$ git branch -d feature-[TicketNumber]
-# Deleted branch feature-[TicketNumber] (was 05e9557).
+$ git branch -d feature/[TicketNumber]
+# Deleted branch feature/[TicketNumber] (was 05e9557).
 
 $ git push -f origin development
 ```
 
 ### Release branches
 
+Release branch has 2 type `Release Beta` and `Release Production`. 
+
+1. Release beta is for testing and branch name contain `release/beta/[versionNumber]-b[buildNumber]`
+
+2. Release production is for published app and branch name contain `release/prod/[versionNumber]`
+
+
+Release branches
+
 - May branch off from:
   
 ```bash
-# BETA RELEASE
+# BETA & PROD RELEASE
 development
-
-# PROD RELEASE
-development or staging
 ```
 
 - Must merge back into:
   
 ```bash
-# BETA RELEASE
-development & staging
-
-# PROD RELEASE
-development & production
+# BETA & PROD RELEASE
+development 
 ```
 
 - Branch naming convention:
 ```bash
 # beta release
-release-[betaFlag]-[versionNumber]-b[buildNumber]
+release/beta/[versionNumber]-b[buildNumber]
 
 # prod release
-release-[versionNumber]-b[buildNumber]
+release/prod/[versionNumber]
 
 # example:
-release-beta-1.2.0-b79
-release-3.2.2-b107
+release/beta/1.2.0-b79
+release/prod/3.2.2
 ```
 
 #### Creating a beta release branch 
@@ -132,57 +125,45 @@ Beta release branches are created from the development branch. The version is ba
 | PATCH  | 1.2.0           | 37                   | 1.2.1        | 38                            |
 
 ```bash
-$ git checkout -b release-beta-1.2.1 development
-# Switched to a new branch "release-beta-1.2.1"
+$ git checkout -b release/beta/1.2.1-b38 development
+# Switched to a new branch "release/beta/1.2.1"
 
 # modified your version on project and others config manually or using script then commit
 
-$ git commit -a -m "Beta LearningHub v1.2.1 b38"
-# comment must follow this pattern : "Beta [AppName] v[versionNumber] b[buildNumber]"
+$ git commit -a -m "LearningHub Beta v1.2.1 b38"
+# comment must follow this pattern : "[AppName] Beta v[versionNumber] b[buildNumber]"
 ```
 
 #### Finishing a beta release branch
 
-Merge into staging first:
-
-```bash
-$ git checkout staging
-# Switched to branch 'staging'
-
-$ git rebase release-beta-1.2.1
-# use rebase instead of merge
-```
-
-then merge into development :
+Merge into development :
 ```bash
 $ git checkout development
 # Switched to branch 'development'
 
-$ git rebase release-beta-1.2.1
+$ git rebase release/beta/1.2.1-b38
 # use rebase instead of merge
+
+# add tag with following pattern : beta-v[versionNumber]-b[buildNumber]
+$ git tag -a beta-v1.2.1-b38
 ```
 
 This step may well lead to a merge conflict (probably even, since we have changed the version number). If so, fix it and commit.
 
-Now we are really done and the beta release branch may be removed, since we don’t need it anymore:
+Branch release beta is beta count minimum 10 branches, if release beta branch > 10 then delete the oldest one. 
 
 ```bash
-$ git branch -d release-beta-1.2.1
+$ git branch -d release/beta/1.0.0-b10
 # delete branch 
 ```
 
 
 #### Creating a production release branch 
-The different between production and beta is flag `beta`. If you want release from staging then create branch based on staging branch else if you want release from development then create branch from development branch.
+The different between beta release is naming in prod release is without build number. Release Production branch off development then create branch from development branch.
 
 ```bash
-# FROM DEV
-$ git checkout -b release-1.2.1 development
-# Switched to a new branch "release-1.2.1"
-
-# FROM STAGING
-$ git checkout -b release-1.2.1 staging
-# Switched to a new branch "release-1.2.1"
+$ git checkout -b release/prod/1.2.1 development
+# Switched to a new branch "release/prod/1.2.1"
 
 # modified your version on project and others config manually or using script then commit
 
@@ -192,77 +173,55 @@ $ git commit -a -m "LearningHub v1.2.1 b38"
 
 #### Finishing a production release branch
 
-Merge into production first:
-
+Merge into development :
 ```bash
-$ git checkout production
-# Switched to branch 'production'
+# development
+$ git checkout development
 
-$ git rebase release-1.2.1
+$ git rebase release/prod/1.2.1
 # use rebase instead of merge
 
 # add tag with following pattern : v[versionNumber]-b[buildNumber]
 $ git tag -a v1.2.1-b38
 ```
-
-then merge into development :
-```bash
-# development
-$ git checkout development
-$ git rebase release-beta-1.2.1
-# use rebase instead of merge
-```
 These step may well lead to a merge conflict (probably even, since we have changed the version number). If so, fix it and commit.
 
-Now we are really done and the prod release branch may be removed:
-
-```bash
-$ git branch -d release-1.2.1
-# delete branch 
-```
 
 ### Hotfix branches
 
 - May branch off from:
   
 ```bash
-production or staging
+release or development
 ```
 
 - Must merge back into:
   
 ```bash
-# from prod
-production & development
-
-#from staging
-staging & development
+development
 ```
 
 - Branch naming convention:
 ```bash
-# from prod
-hotfix-[nextVersionNumber]
-# from staging
-hotfix-beta-[nextVersionNumber]
+hotfix/[ticketNumber]
 
 # example:
-hotfix-3.2.3
-hotfix-beta-3.2.3
+hotfix/DY-190
+
+# if there are no ticket number you can use version number that currently fixing.
+hotfix/[currentVersionBeingFixed]
+
+# example:
+hotfix/1.2.1
 ```
 
-Maintenance or “hotfix” branches are used to quickly patch production releases. Hotfix branches are a lot like release branches and feature branches except they're based on main instead of develop. This is the only branch that should fork directly off of `production`. As soon as the fix is complete, it should be merged into both `production` and `development`, and main should be tagged with an updated version number.
+Maintenance or “hotfix” branches are used to quickly patch production releases. Hotfix branches are a lot like release branches and feature branches except they're based on main instead of develop. This is the only branch that should fork directly off of `release`. As soon as the fix is complete, make new release branch and it should be merged into `development`, and should be tagged with an updated version number.
 
 #### Creating a production hotfix  branch 
-Hotfix branches are created from the `production` branch. For example, say version 1.2.1 is the current production release running live and causing troubles due to a severe bug so the next version is 1.2.2 because it is patch update. But changes on develop are yet unstable. We may then branch off a hotfix branch and start fixing the problem:
+Hotfix branches are created from the `release prod` branch. For example, say version 1.2.1 is the current production release running live and causing troubles due to a severe bug so the next version is 1.2.2 because it is patch update. But changes on develop are yet unstable. We may then branch off a hotfix branch and start fixing the problem:
 
 ```bash
-$ git checkout -b hotfix-1.2.2 production
-
-# modified your version on project and others config manually or using script then commit
-
-$ git commit -a -m "LearningHub v1.2.2 b39"
-# comment must follow this pattern : "[AppName] v[versionNumber] b[buildNumber]"
+$ git checkout -b hotfix/DY-190 release/prod/1.2.1
 ```
 
 Then, fix the bug and commit the fix in one or more separate commits.
@@ -270,30 +229,25 @@ Then, fix the bug and commit the fix in one or more separate commits.
 ```bash
 # example: 
 $ git commit -a -m "Fixed severe production problem"
+
+# modified your version on project and others config manually or using script then commit
+
+$ git commit -a -m "LearningHub v1.2.2 b39"
+# comment must follow this pattern : "[AppName] v[versionNumber] b[buildNumber]"
 ```
 
 #### Finishing a production hotfix branch
 
-Merge into production first:
-
-```bash
-$ git checkout production
-# Switched to branch 'production'
-
-$ git rebase hotfix-1.2.2
-# use rebase instead of merge
-
-# add tag with following pattern : v[versionNumber]-b[buildNumber]
-$ git tag -a v1.2.2-b39
-```
-
-then merge into development :
+Merge development :
 ```bash
 $ git checkout development
 # Switched to branch 'development'
 
-$ git rebase hotfix-1.2.2
+$ git rebase hotfix/DY-190
 # use rebase instead of merge
+
+# add tag with following pattern : v[versionNumber]-b[buildNumber]
+$ git tag -a v1.2.2-b39
 ```
 
 This step may well lead to a merge conflict (probably even, since we have changed the version number). If so, fix it and commit.
@@ -303,58 +257,7 @@ The one exception to the rule here is that, `when a production release branch cu
 Finally, remove the temporary branch:
 
 ```bash
-$ git branch -d hotfix-1.2.2
-# delete branch 
-```
-
-#### Creating a staging hotfix  branch 
-Hotfix branches are created from the `production` branch. For example, say version 1.2.1 is the current production release running live and causing troubles due to a severe bug so the next version is 1.2.2 because it is patch update. But changes on develop are yet unstable. We may then branch off a hotfix branch and start fixing the problem:
-
-```bash
-$ git checkout -b hotfix-beta-1.2.2 staging
-
-# modified your version on project and others config manually or using script then commit
-
-$ git commit -a -m "Beta LearningHub v1.2.2 b39"
-# comment must follow this pattern : "[AppName] v[versionNumber] b[buildNumber]"
-```
-
-Then, fix the bug and commit the fix in one or more separate commits.
-
-```bash
-# example: 
-$ git commit -a -m "Fixed severe staging problem"
-```
-
-#### Finishing a staging hotfix branch
-
-Merge into staging first:
-
-```bash
-$ git checkout staging
-# Switched to branch 'staging'
-
-$ git rebase hotfix-beta-1.2.2
-# use rebase instead of merge
-
-# without tag
-```
-
-then merge into development :
-```bash
-$ git checkout development
-# Switched to branch 'development'
-
-$ git rebase hotfix-beta-1.2.2
-# use rebase instead of merge
-```
-
-This step may well lead to a merge conflict (probably even, since we have changed the version number). If so, fix it and commit.
-
-Finally, remove the temporary branch:
-
-```bash
-$ git branch -d hotfix-beta-1.2.2
+$ git branch -d hotfix/DY-190
 # delete branch 
 ```
 
@@ -374,11 +277,14 @@ development
 
 - Branch naming convention:
 ```bash
-enhance-[ShorDescription]
+enhance/[ShorDescription]
+# or
+enhance/[TicketNumber]
 
 # example:
-enhance-migration
-enhance-auth-optimation
+enhance/migration
+enhance/auth-optimation
+enhance/DY-239
 ```
 
 Feature branches are used when developing a new feature which has the potential of a development lifespan longer than a single deployment. When starting development, the deployment in which this feature will be released may not be known. No matter when the feature branch will be finished, it will always be merged back into the <b>development</b> branch.
@@ -386,23 +292,26 @@ Feature branches are used when developing a new feature which has the potential 
 #### Creating a enhance branch 
 When starting work on a new enhance, branch off from the develop branch.
 ```bash
-$ git checkout -b enhance-[ShortDescription] development
+$ git checkout -b enhance/[ShortDescription] development
 # Switched to a new branch "enhance-[ShorDescription]"
+
+or
+$ git checkout -b enhance/[TicketNumber] development
 ```
 
 #### Creating a derivative enhance branch 
 Derivative enhance branch applied if developer who do enhance more than 1.
 This branch is from parent enhance-[ShorDescription] and must merge back to enhance-[ShorDescription]
 ```bash
-$ git checkout -b enhance-[ShortDescription]-[developerName] enhance-[ShortDescription]
-# example -b enhance-migration-irufano
+$ git checkout -b enhance/[ShortDescription]/[partOfEnhance] enhance/[ShortDescription]
+# example -b enhance/migration/auth
 
 # do enhancement then commit your task
 
-# checkout to enhance-[ShortDescription] and rebase enhance-[ShortDescription]-[developerName]
+# checkout to enhance/[ShortDescription] and rebase enhance/[ShortDescription]/[partOfEnhance]
 
-$ git checkout enhance-[ShortDescription]
-$ git reabse enhance-[ShortDescription]-[developerName]
+$ git checkout enhance/[ShortDescription]
+$ git reabse enhance/[ShortDescription]/[developerName]
 ```
 
 #### Finished enhance on development
@@ -411,11 +320,11 @@ $ git reabse enhance-[ShortDescription]-[developerName]
 $ git checkout development
 # Switched to branch 'development'
 
-$ git rebase enhance-[ShortDescription]
+$ git rebase enhance/[ShortDescription]
 # use rebase instead of merge
 
-$ git branch -d enhance-[ShortDescription]
-# Deleted branch enhance-[ShortDescription] (was 05e9557).
+$ git branch -d enhance/[ShortDescription]
+# Deleted branch enhance/[ShortDescription] (was 05e9557).
 
 $ git push -f origin development
 ```
