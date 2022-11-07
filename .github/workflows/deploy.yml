@@ -58,6 +58,6 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.MOBI_BOT_DISCORD }}
         with:
           nodetail: true
-          title: "Doc Has Updated! \u2705"
+          title: "Doc Has Been Updated! \u2705"
           description: "Please read the updated docs [here](https://dlabs-mobile-apps.github.io/docs/intro)"
           color: 0x1de9b6
