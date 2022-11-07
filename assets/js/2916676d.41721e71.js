@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmobile_dev_docs=self.webpackChunkmobile_dev_docs||[]).push([[5086],{4686:function(t){t.exports=JSON.parse('{"name":"technology","permalink":"/docs/tags/technology","docs":[{"id":"getting-started","title":"Getting Started","description":"Getting started","permalink":"/docs/getting-started"}],"allTagsPath":"/docs/tags"}')}}]);

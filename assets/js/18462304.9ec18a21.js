@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmobile_dev_docs=self.webpackChunkmobile_dev_docs||[]).push([[630],{1796:function(e){e.exports=JSON.parse('{"name":"ios","permalink":"/docs/tags/ios","docs":[{"id":"releases/release-ios","title":"Release your iOS app","description":"Release iOS","permalink":"/docs/releases/release-ios"}],"allTagsPath":"/docs/tags"}')}}]);

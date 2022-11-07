@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmobile_dev_docs=self.webpackChunkmobile_dev_docs||[]).push([[1864],{326:function(e){e.exports=JSON.parse('{"pluginId":"feedback","version":"current","label":"Next","banner":null,"badge":false,"className":"docs-version-current","isLast":true,"docsSidebars":{"tutorialSidebar":[{"type":"link","label":"Feedback Form","href":"/feedback/form"}]}}')}}]);

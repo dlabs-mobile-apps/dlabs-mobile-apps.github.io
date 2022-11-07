@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdlabs_mobile_apps_github_io=self.webpackChunkdlabs_mobile_apps_github_io||[]).push([[3871],{4836:s=>{s.exports=JSON.parse('{"name":"docusaurus-plugin-content-docs","id":"design-system-docs"}')}}]);
