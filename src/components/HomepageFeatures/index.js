@@ -1,11 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
-import styles from './HomepageFeatures.module.css';
+import styles from './styles.module.css';
 
 const FeatureList = [
   {
     title: 'Neat is Beautiful',
-    Svg: require('../../static/img/mobi_mountain.svg').default,
+    Svg: require('../../../static/img/mobi_mountain.svg').default,
     description: (
       <>
         Neat will make it easier for you to maintain a project. 
@@ -15,7 +15,7 @@ const FeatureList = [
   },
   {
     title: 'Docs for Guidance',
-    Svg: require('../../static/img/mobi_tree.svg').default,
+    Svg: require('../../../static/img/mobi_tree.svg').default,
     description: (
       <>
         Documentation of mobile development standarization which is developed and made by dlabs mobile dev team
@@ -25,7 +25,7 @@ const FeatureList = [
   },
   {
     title: 'Coding & Sharing',
-    Svg: require('../../static/img/mobi_flutter.svg').default,
+    Svg: require('../../../static/img/mobi_flutter.svg').default,
     description: (
       <>
         You can share your research results on this site by writing blogs. 
@@ -39,7 +39,7 @@ function Feature({Svg, title, description}) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">
-        <Svg className={styles.featureSvg} alt={title} />
+        <Svg className={styles.featureSvg} role="img" />
       </div>
       <div className="text--center padding-horiz--md">
         <h3>{title}</h3>

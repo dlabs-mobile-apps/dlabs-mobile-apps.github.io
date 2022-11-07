@@ -6,21 +6,15 @@
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
-Docusaurus is essentially a set of npm packages.
-
-Requirements​
-- Node.js version >= 14 or above (which can be checked by running node -v). You can use nvm for managing multiple Node versions on a single machine installed
-- Yarn version >= 1.5 (which can be checked by running yarn --version). Yarn is a performant package manager for JavaScript and replaces the npm client. It is not strictly necessary but highly encouraged.
-
 ### Installation
 
-```bash
+```
 $ yarn
 ```
 
 ### Local Development
 
-```bash
+```
 $ yarn start
 ```
 
@@ -28,7 +22,7 @@ This command starts a local development server and opens up a browser window. Mo
 
 ### Build
 
-```bash
+```
 $ yarn build
 ```
 
@@ -36,7 +30,15 @@ This command generates static content into the `build` directory and can be serv
 
 ### Deployment
 
-```bash
+Using SSH:
+
+```
+$ USE_SSH=true yarn deploy
+```
+
+Not using SSH:
+
+```
 $ GIT_USER=<Your GitHub username> yarn deploy
 ```
 

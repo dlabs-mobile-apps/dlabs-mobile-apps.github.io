@@ -13,17 +13,27 @@ const config = {
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
 
+  // GitHub pages deployment config.
+  // If you aren't using GitHub pages, you don't need these.
   organizationName: "dlabs-mobile-apps", // Usually your GitHub org/user name.
   projectName: "dlabs-mobile-apps.github.io", // Usually your repo name.
+
   url: "https://dlabs-mobile-apps.github.io",
   baseUrl: "/",
-  trailingSlash: false,
-  deploymentBranch: "gh-pages",
+
+  // Even if you don't use internalization, you can use this field to set useful
+  // metadata like html lang. For example, if your site is Chinese, you may want
+  // to replace "en" with "zh-Hans".
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en"],
+  },
 
   presets: [
     [
-      "@docusaurus/preset-classic",
-      {
+      "classic",
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      ({
         docs: {
           routeBasePath: "docs",
           path: "docs",
@@ -36,7 +46,7 @@ const config = {
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
-      },
+      }),
     ],
   ],
 
@@ -74,44 +84,47 @@ const config = {
     ],
   ],
 
-  themeConfig: {
-    navbar: {
-      title: "Mobi",
-      logo: {
-        alt: "Mobi Logo",
-        src: "img/mobi.png",
+  themeConfig:
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    ({
+      navbar: {
+        title: "Mobi",
+        logo: {
+          alt: "Mobi Logo",
+          src: "img/mobi.png",
+        },
+        items: [
+          {
+            type: "doc",
+            docId: "intro",
+            position: "left",
+            label: "Docs",
+          },
+          { to: "/blog", label: "Blog", position: "left" },
+          {
+            to: "/design-system-docs/intro",
+            position: "left",
+            label: "Design System",
+            activeBaseRegex: `/design-system-docs/`,
+          },
+          {
+            to: "/feedback/form",
+            position: "left",
+            label: "Feedback",
+            activeBaseRegex: `/feedback/`,
+          },
+        ],
       },
-      items: [
-        {
-          type: "doc",
-          docId: "intro",
-          position: "left",
-          label: "Docs",
-        },
-        { to: "/blog", label: "Blog", position: "left" },
-        {
-          to: "/design-system-docs/intro",
-          position: "left",
-          label: "Design System",
-          activeBaseRegex: `/design-system-docs/`,
-        },
-        {
-          to: "/feedback/form",
-          position: "left",
-          label: "Feedback",
-          activeBaseRegex: `/feedback/`,
-        },
-      ],
-    },
-    footer: {
-      style: "dark",
-      copyright: `© ${new Date().getFullYear()} Dlabs Mobile Dev Team`,
-    },
-    prism: {
-      theme: lightCodeTheme,
-      darkTheme: darkCodeTheme,
-    },
-  },
+      footer: {
+        style: "dark",
+        links: [],
+        copyright: `© ${new Date().getFullYear()} Dlabs Mobile Dev Team`,
+      },
+      prism: {
+        theme: lightCodeTheme,
+        darkTheme: darkCodeTheme,
+      },
+    }),
 };
 
 module.exports = config;
