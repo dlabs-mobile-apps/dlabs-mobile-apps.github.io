@@ -86,18 +86,7 @@ We have error handling for dio client and custom error that can be found at  `li
 
       // error from status code 200
       if (result.data?.status == ResultType.Error.value) {
-        var error = Result.fromError(
-          result.data?.info?.message, 
-          response: result.response,
-        );
-
-        emit(LoginError(
-          statusCode: error.statusCode,
-          message: error.message
-          detailMessage: error.detailMessage
-        ));
-
-        return;
+        throw ValueException(result.data?.info?.message, result.response);
       }
 
       emit(LoginSuccess());
