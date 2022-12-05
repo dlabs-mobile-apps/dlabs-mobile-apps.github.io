@@ -86,7 +86,7 @@ We have error handling for dio client and custom error that can be found at  `li
 
       // error from status code 200
       if (result.data?.status == ResultType.Error.value) {
-        throw ValueException(result.data?.info?.message, result.response);
+        throw AppException(result.data?.info?.message, result.response);
       }
 
       emit(LoginSuccess());
@@ -102,21 +102,21 @@ We have error handling for dio client and custom error that can be found at  `li
     ```
 
   
-## Value Exception (Custom Error Handling)
+## App Exception (Custom Error Handling)
 
-This value exception is used for custom error to get message error only, usages:
+This app exception is used for custom error to get message error only, usages:
 
 
 ```js
 // add anywhere in your logic
-throw ValueException('Custom Error Message');
+throw AppException('Custom Error Message');
 
 // with error code
-throw ValueException('Custom Error Message', ErrorCode.mobileOther.value);
+throw AppException('Custom Error Message', ErrorCode.mobileOther.value);
 ```
 
 
-This value exception can be used for dio client also for nested method on error api status code 200, example:
+This app exception can be used for dio client also for nested method on error api status code 200, example:
 
 ```js
 // inside event bloc there are method more than 1
@@ -137,7 +137,7 @@ Future getItems() {
 ...
   Result<Items> result = await ItemRepository.getItems();
   if (result.data?.status == ResultType.Error.value) {
-    throw ValueException(
+    throw AppException(
       result.data?.info?.message, // message from api
       result.response, // put the response
     );
@@ -154,7 +154,7 @@ Future getDetails() {
 ...
   Result<Details> result = await ItemRepository.getDetails();
   if (result.data?.status == ResultType.Error.value) {
-    throw ValueException(
+    throw AppException(
       result.data?.info?.message, // message from api
       result.response, // put the response
     );
