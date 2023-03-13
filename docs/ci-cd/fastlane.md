@@ -124,10 +124,6 @@ sudo gem install fastlane
    
    ```bash
    app_identifier("") # The bundle identifier of your app
-   apple_id("") # Your Apple Developer Portal username
-
-   itc_team_id("") # App Store Connect Team ID
-   team_id("") # Developer Portal Team ID
 
    # For more information about the Appfile, see:
    #     https://docs.fastlane.tools/advanced/#appfile
@@ -152,6 +148,13 @@ sudo gem install fastlane
 
       desc "Upload app to testflight"
       lane :deploy do
+            app_store_connect_api_key(
+               key_id: "YOUR KEY ID",
+               issuer_id: "YOUR ISSUER ID",
+               key_content: "BASE64 KEY" // base64 encoded key,
+               is_key_content_base64: true,
+               in_house: false #boolean value if team is Enterprise or not
+            )
             pilot(
                ipa: "../build/ios/ipa/learning_hub_mobileapps.ipa",
                skip_submission: true,
