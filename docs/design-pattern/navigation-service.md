@@ -24,11 +24,12 @@ Future<void> setupLocator() async {
 We can use navigation service everywhere because this navigation service no need context for navigate. To use navigation service define the locator first then call the method.
 
 ```js
-NavigationService navigationService = locator<NavigationService>();
+// this instance already define at NavigationService
+NavigationService nav = locator<NavigationService>();
 
 
-// then navigate
-navigationService.pushReplacement(Routes.MAIN_PAGE);
+// just import NavigationService and call `nav` anywhere
+nav.push(Routes.mainPage, data: arg);
 ```
 
 
@@ -56,22 +57,22 @@ navigationService.pushReplacement(Routes.MAIN_PAGE);
   3.  if want to navigate page that must contain parameter, create parameter model and navigate, then check on that page at initState. example:
       ```js
       // create parameter model and navigate
-      MainPageParameter param = MainPageParameter(
+      MainPageArg arg = MainPageArg(
             currentIndex: 0,
             expandAudioPanel: false,
           );
 
-      navigationService.push(Routes.MAIN_PAGE, arguments: param);
+      navigationService.push(Routes.mainPage, data: arg);
       ```
       ```dart
-      late MainPageParameter param;
+      late MainPageArg arg;
 
       // check on page that contain parameter at initstate 
       @override
       void initState() {
-        param = widget.data;
-        _currentIndex = param.currentIndex ?? 0;
-        _isPanelExpand = param.expandAudioPanel ?? false;
+        arg = widget.data;
+        _currentIndex = arg.currentIndex ?? 0;
+        _isPanelExpand = arg.expandAudioPanel ?? false;
 
         super.initState();
       }
