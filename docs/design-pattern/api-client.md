@@ -11,8 +11,8 @@ Our http client using Dio, with options :
 ```js
 BaseOptions(
   baseUrl: Environment().config.apiHost,
-  connectTimeout: 15000,
-  receiveTimeout: 15000,
+  connectTimeout: const Duration(milliseconds: 15000),
+  receiveTimeout: const Duration(milliseconds: 15000),
   contentType: "application/json",
   responseType: ResponseType.json,
 ),

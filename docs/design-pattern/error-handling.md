@@ -6,7 +6,6 @@ description: Error Handling
 ---
 
 # Error Handling
-
 We have error handling for dio client and custom error that can be found at  `lib/core/client/result.dart`.
 
 ## Dio Client Error Handling
