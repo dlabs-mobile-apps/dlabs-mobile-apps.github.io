@@ -12,25 +12,44 @@ Because we use bloc state management, directory structure of the project must fo
 
 ```dart
 lib
-└── core
+├── core
 │   ├── client
 │   ├── common
-│   ├── managers (navigation, route & notification manager)
-│   ├── services
-│   └── widgets (global widgets that usually used)
-└── features
+│   ├── environment
+│   ├── exception
+│   ├── localization
+│   ├── locator
+│   ├── navigation
+│   ├── service
+│   ├── theme
+│   └── widget (design system widget)
+└── feature
     ├── feature_name
     │   ├── bloc
     │   ├── data
-    │   │   ├── models
-    │   │   └── repositories (api)
+    │   │   ├── model
+    │   │   └── repository 
     │   └── presentation
     │       ├── pages
-    │       └── widgets (dedicated widget on that page)
+    │       └── widgets
     │
     ├── another_features
-    │   ├─ - - - -
+    │   ├─ . . . 
     .   .
     .   .
     .   .
+```
+
+For testing directory structure:
+```md
+test
+├── feature_name
+│   ├── unit
+│   ├── widget
+│   └── integration
+├── another_features
+│   ├── . . .
+│   .
+│   .
+│   .
 ```
