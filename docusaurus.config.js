@@ -22,7 +22,6 @@ const config = {
 
   url: "https://dlabs-mobile-apps.github.io",
   baseUrl: "/",
-  
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -61,6 +60,7 @@ const config = {
         path: "design-system-docs",
         routeBasePath: "design-system-docs",
         sidebarPath: require.resolve("./sidebars.js"),
+        sidebarCollapsed: false,
       },
     ],
     [
