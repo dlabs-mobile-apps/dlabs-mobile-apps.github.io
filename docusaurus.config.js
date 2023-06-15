@@ -83,6 +83,8 @@ const config = {
         // language: ["en", "zh"],
         // ```
         // When applying `zh` in language, please install `nodejieba` in your project.
+        docsRouteBasePath: ["/docs", "/design-system-docs"],
+        docsDir: ["docs", "design-system-docs"],
       },
     ],
   ],
