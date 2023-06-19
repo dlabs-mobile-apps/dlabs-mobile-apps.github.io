@@ -92,19 +92,29 @@ The **Screenshoots/Graphics** can be designed first by UI/UX team for a better p
 - Keywords *: (separated keyword with comma)
 - Release Notes : you can view [Release Notes](./release-notes.md).
 - Screenshots * : upload 4 to 10 screenshots (with real screenshots/mockup that similar to app)
+
+    - iPhone 6.7” display (ex. iPhone 14 Pro Max) 1284x2778 px
+  
+    Sample 6.7” screenshots:
+    :::warning
+    if preview use frame, please use **iPhone device frame**
+    :::
+    ![Sample](./6.5-sample.png)
+
     - iPhone 6.5” display (ex. iPhone 12 Pro Max) 1242x2688 px
   
     Sample 6.5” screenshots:
     :::warning
-    if preview use frame, please use **iOS device frame**
+    if preview use frame, please use **iPhone device frame**
     :::
     ![Sample](./6.5-sample.png)
+
 
     - iPhone 5.5” display (ex. iPhone 8 Plus) 1242x2208 px
 
     Sample 5.5” screenshots:
     :::warning
-    if preview use frame, please use **iOS device frame**
+    if preview use frame, please use **iPhone device frame**
     :::
     ![Sample](./5.5-sample.png)
 
@@ -112,7 +122,7 @@ The **Screenshoots/Graphics** can be designed first by UI/UX team for a better p
   
     Sample 12.9” screenshots:
     :::warning
-    if preview use frame, please use **iOS device frame**
+    if preview use frame, please use **iPhone device frame**
     :::
     ![Sample](./12.9-sample.png)
 
