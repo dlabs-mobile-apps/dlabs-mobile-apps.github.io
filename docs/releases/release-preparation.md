@@ -99,7 +99,9 @@ The **Screenshoots/Graphics** can be designed first by UI/UX team for a better p
     :::warning
     if preview use frame, please use **iPhone device frame**
     :::
+    
     ![Sample](./6.5-sample.png)
+    **This sample still use 6.5 display because no samples yet*
 
     - iPhone 6.5” display (ex. iPhone 12 Pro Max) 1242x2688 px
   
