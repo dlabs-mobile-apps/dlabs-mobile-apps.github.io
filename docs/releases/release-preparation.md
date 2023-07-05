@@ -93,7 +93,7 @@ The **Screenshoots/Graphics** can be designed first by UI/UX team for a better p
 - Release Notes : you can view [Release Notes](./release-notes.md).
 - Screenshots * : upload 4 to 10 screenshots (with real screenshots/mockup that similar to app)
 
-    - iPhone 6.7” display (ex. iPhone 14 Pro Max) 1284x2778 px
+    - iPhone 6.7” display (ex. iPhone 14 Pro Max) 1290x2796 px
   
     Sample 6.7” screenshots:
     :::warning
