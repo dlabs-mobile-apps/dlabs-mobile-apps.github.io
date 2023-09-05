@@ -10,5 +10,5 @@ description: Script for release / deploy automation
 To run release script just run command below on your root flutter app using terminal:
 
 ```bash
-./release_script.sh
+./script.sh.x YOUR_APP_NAME
 ```
