@@ -349,7 +349,7 @@ CONCERN QA:
 ## Commit Message Standard
 
 ```
-[ticket-number] - feature/enhance/bugfix name
+[ticket-number]: feature/enhance/bugfix name
 ```
 - Using ticket number
 - Followed by feature/enhance/bugfix name
@@ -357,7 +357,7 @@ CONCERN QA:
 
 example:
 ```
-LH-123 - enhance authentication
+LH-123: enhance authentication
 ```
 
 ## Git Bash
