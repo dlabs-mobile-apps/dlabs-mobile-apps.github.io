@@ -329,5 +329,21 @@ $ git branch -d enhance/[ShortDescription]
 $ git push -f origin development
 ```
 
+## Commit Message Standard
+Naming Convention TIKET DEVELOPMENT also BUGS
+[BE], [FE], [MOBILE], [UX]
+
+example:
+
+```
+[MOBILE] feature name
+```
+
+
+CONCERN QA: 
+- Issue Prod please add tagging [PROD]
+- Issue Prod pleas assign to FE first then tambahkan tagging [PROD][FE]
+- If FF checked it's not FE issue, FE please update tag to [PROD][BE]. If the actual issue come from both FE and BE, FE and BE please work with BE and QA to create 1 bug ticket to BE with tagging [PROD][BE] and relate [PROD][FE] ticket.
+
 ## Git Bash
 There are some git operation that usually used to manage repository on mobile project, so that the repository is neater. You can see [git bash here](/docs/repository/git-bash).
