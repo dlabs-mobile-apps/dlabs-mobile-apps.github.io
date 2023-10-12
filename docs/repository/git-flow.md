@@ -360,5 +360,25 @@ example:
 LH-123: enhance authentication
 ```
 
+## Pull Request Standard
+
+### Title Pull Request
+```
+[ticket-number]: feature/enhance/bugfix pr name
+```
+example:
+```
+LH-102: Enhance quiz multiple choice
+```
+
+### Description Pull Request
+Format:
+```
+Update:
+- list your update items
+- ...
+- ...
+```
+
 ## Git Bash
 There are some git operation that usually used to manage repository on mobile project, so that the repository is neater. You can see [git bash here](/docs/repository/git-bash).
