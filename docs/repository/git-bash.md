@@ -144,4 +144,31 @@ if you only have 1 stash you can use
 ```bash
 git stash pop
 ```
+## rename branch
 
+If you have already pushed the wrong name to remote, do the following
+
+Switch to the local branch you want to rename
+```bash
+git checkout <old_name>
+```
+
+Rename the local branch
+```bash
+git branch -m <new_name>
+```
+
+Or you can run this command to rename local branch (optional)
+```bash
+git branch -m <old_name> <new_name>
+```
+
+Push the <new_name> local branch and reset the upstream branch
+```bash
+git push origin -u <new_name>
+```
+
+Delete the <old_name> remote branch and finish!
+```bash
+git push origin --delete <old_name>
+```
