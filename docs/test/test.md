@@ -17,6 +17,7 @@ Type of testing that is focused on the parts that build the User Interface of an
 ## Integration Test 
 Type of testing that is focused on testing the entire flow of the application (end-to-end testing)
 
+
 ```bash
 echo "coming soon"
 ```
