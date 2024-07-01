@@ -1,7 +1,7 @@
 ---
-sidebar_position: 5
+sidebar_position: 1
 tags: 
- - design pattern
+ - tools
 description: App/Universal link (universal link for ios, app link for android) is technique that mobile platforms android and ios use to open the application via a link.
 ---
 

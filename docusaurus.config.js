@@ -1,5 +1,6 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
+require("dotenv").config();
 
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
@@ -52,6 +53,11 @@ const config = {
     ],
   ],
 
+  customFields: {
+    allowedUsers: process.env.ALLOWED_USERS,
+    googleClientId: process.env.GOOGLE_CLIENTID,
+  },
+
   plugins: [
     [
       "@docusaurus/plugin-content-docs",
@@ -87,11 +93,22 @@ const config = {
         docsDir: ["docs", "design-system-docs"],
       },
     ],
+    [
+      "docusaurus2-dotenv",
+      {
+        systemvars: true,
+      },
+    ],
   ],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      colorMode: {
+        defaultMode: "dark",
+        disableSwitch: false,
+        respectPrefersColorScheme: false,
+      },
       navbar: {
         title: "Mobi",
         logo: {
@@ -117,6 +134,12 @@ const config = {
             position: "left",
             label: "Feedback",
             activeBaseRegex: `/feedback/`,
+          },
+          {
+            type: "html",
+            position: "right",
+            value:
+              '<a href="#" onClick=" (function(){ localStorage.removeItem(`email`); location.reload(); })(); return false;" style="content: \'\'; width: 24px; height: 24px; background-image: url(\'https://cdn-icons-png.freepik.com/512/8377/8377213.png\'); background-repeat: no-repeat;  background-size: 24px 24px; display: flex">',
           },
         ],
       },

@@ -1,17 +1,13 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 tags: 
  - tools
-description: Crashlytics helps you to collect analytics and details about crashes and errors that occur in your app. It does this through three aspects there are [Logs]  Log events in your app to be sent with the crash report for context if your app crashes, [Crash] reports Every crash is automatically turned into a crash report and sent when the application next opens and [Stack traces]  Even when an error is caught and your app recovers, the Dart stack trace can still be sent.
+description: Flavors (known as build configurations in iOS and macOS), allow you (the developer) to create separate environments for your app using the same code base. For example, you might have one flavor for your full-fledged production app, another as a limited "free" app, another for testing experimental features, and so on.
 ---
 
-# Crashlytics
+# Flavors
 
-Crashlytics helps you to collect analytics and details about crashes and errors that occur in your app. It does this through three aspects:
-
-- Logs: Log events in your app to be sent with the crash report for context if your app crashes.
-- Crash reports: Every crash is automatically turned into a crash report and sent when the application next opens.
-- Stack traces: Even when an error is caught and your app recovers, the Dart stack trace can still be sent.
+Flavors (known as build configurations in iOS and macOS), allow you (the developer) to create separate environments for your app using the same code base. For example, you might have one flavor for your full-fledged production app, another as a limited "free" app, another for testing experimental features, and so on.
 
 ## Installation
 Add firebase crashlytics plugin 
