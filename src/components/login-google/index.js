@@ -4,6 +4,7 @@ import {
   GoogleLogin,
   GoogleOAuthProvider,
 } from "@react-oauth/google";
+import Layout from "@theme/Layout";
 import React from "react";
 import logo from "../../../static/img/mobi.png";
 import clsx from "clsx";
@@ -63,7 +64,9 @@ export function LoginGoogle({ login, denied }) {
         </p>
 
         {denied ? (
-          <em className={styles.subtitle}>You're not authorized, please contact admin to get access</em>
+          <em className={styles.subtitle}>
+            You're not authorized, please contact admin to get access
+          </em>
         ) : (
           <GoogleLogin
             onSuccess={handleSuccess}

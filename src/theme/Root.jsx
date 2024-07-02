@@ -1,7 +1,9 @@
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import React, { useEffect, useState } from "react";
-
+import Container from "react-bootstrap/Container";
 import { LoginGoogle } from "@site/src/components/login-google";
+import { Col, Row } from "react-bootstrap";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 
 export default function Root({ children }) {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -44,11 +46,14 @@ export default function Root({ children }) {
   });
 
   if (!loggedIn) {
+    console.log(process.env.NODE_ENV)
     return (
-      <LoginGoogle
-        login={setEmailToLocal}
-        denied={isDenied === true}
-      ></LoginGoogle>
+      <Container className="container-fluid">
+        <LoginGoogle
+          login={setEmailToLocal}
+          denied={isDenied === true}
+        ></LoginGoogle>
+      </Container>
     );
   }
 

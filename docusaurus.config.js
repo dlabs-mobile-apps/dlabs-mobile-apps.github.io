@@ -5,6 +5,11 @@ require("dotenv").config();
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
+const baseUrl =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://dlabs-mobile-apps.github.io";
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Dlabs Mobile Dev Team",
@@ -138,8 +143,7 @@ const config = {
           {
             type: "html",
             position: "right",
-            value:
-              '<a href="#" onClick=" (function(){ localStorage.removeItem(`email`); location.reload(); })(); return false;" style="content: \'\'; width: 24px; height: 24px; background-image: url(\'https://cdn-icons-png.freepik.com/512/8377/8377213.png\'); background-repeat: no-repeat; margin-left: 10px; background-size: 24px 24px; display: flex">',
+            value: `<a href="#" onClick=" (function(){ localStorage.removeItem('email'); window.location.href = '${baseUrl}' })(); return false;" style="content: \'\'; width: 24px; height: 24px; background-image: url(\'https://cdn-icons-png.freepik.com/512/8377/8377213.png\'); background-repeat: no-repeat; margin-left: 10px; background-size: 24px 24px; display: flex">`,
           },
         ],
       },
