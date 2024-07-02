@@ -139,7 +139,7 @@ const config = {
             type: "html",
             position: "right",
             value:
-              '<a href="#" onClick=" (function(){ localStorage.removeItem(`email`); location.reload(); })(); return false;" style="content: \'\'; width: 24px; height: 24px; background-image: url(\'https://cdn-icons-png.freepik.com/512/8377/8377213.png\'); background-repeat: no-repeat;  background-size: 24px 24px; display: flex">',
+              '<a href="#" onClick=" (function(){ localStorage.removeItem(`email`); location.reload(); })(); return false;" style="content: \'\'; width: 24px; height: 24px; background-image: url(\'https://cdn-icons-png.freepik.com/512/8377/8377213.png\'); background-repeat: no-repeat; margin-left: 10px; background-size: 24px 24px; display: flex">',
           },
         ],
       },

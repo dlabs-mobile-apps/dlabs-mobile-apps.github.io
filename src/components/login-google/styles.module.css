@@ -1,0 +1,44 @@
+.heroBanner {
+  padding: 5rem;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  font-size: 30pt;
+  font-weight: bold;
+  line-height: 1;
+  padding-bottom: 2rem;
+}
+
+.subtitle {
+  font-size: larger;
+  font-weight: normal;
+  line-height: 1;
+}
+/** In mobile view, reduce the padding */
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem;
+    padding-top: 10rem;
+  }
+}
+
+/** In mobile view, reduce the padding */
+@media screen and (max-width: 996px) {
+  .title {
+    font-size: 60pt;
+    padding-bottom: 4rem;
+  }
+}
+
+/** In mobile view, reduce the padding */
+@media screen and (max-width: 996px) {
+  .subtitle {
+    font-size: 28pt;
+    padding-bottom: 4rem;
+  }
+}
+

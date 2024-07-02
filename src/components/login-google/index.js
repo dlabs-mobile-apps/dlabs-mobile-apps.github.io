@@ -6,6 +6,8 @@ import {
 } from "@react-oauth/google";
 import React from "react";
 import logo from "../../../static/img/mobi.png";
+import clsx from "clsx";
+import styles from "./styles.module.css";
 
 export function LoginGoogle({ login, denied }) {
   const {
@@ -47,27 +49,21 @@ export function LoginGoogle({ login, denied }) {
 
   return (
     <GoogleOAuthProvider clientId={clientId}>
-      <div
-        style={{
-          display: "flex",
-          flexFlow: "column nowrap",
-          alignItems: "center",
-          margin: "5rem auto",
-          textAlign: "center",
-        }}
-      >
+      <div className={styles.heroBanner}>
         <img
           src={logo}
           alt="logo"
           width={120}
           height={120}
-          style={{ marginTop: 30, marginBottom: 20 }}
+          style={{ marginTop: 30, marginBottom: 40 }}
         />
 
-        <h2>Please sign in to your Google account to get access.</h2>
+        <p className={styles.title}>
+          Please sign in to your Google account to get access.
+        </p>
 
         {denied ? (
-          <em>You're not authorised, please contact admin to get access</em>
+          <em className={styles.subtitle}>You're not authorized, please contact admin to get access</em>
         ) : (
           <GoogleLogin
             onSuccess={handleSuccess}
@@ -75,6 +71,7 @@ export function LoginGoogle({ login, denied }) {
             shape="circle"
             size="large"
             theme="filled_blue"
+            width="200px"
           ></GoogleLogin>
         )}
       </div>
