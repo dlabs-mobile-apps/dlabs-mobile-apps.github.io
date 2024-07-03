@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import { LoginGoogle } from "@site/src/components/login-google";
 import { Col, Row } from "react-bootstrap";
 import useBaseUrl from "@docusaurus/useBaseUrl";
+const CryptoJS = require("crypto-js");
 
 export default function Root({ children }) {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -12,6 +13,8 @@ export default function Root({ children }) {
   const {
     siteConfig: { customFields },
   } = useDocusaurusContext();
+
+  const secret = "!@#123dayatechmobileappsdocs4567";
 
   const isAccessAllowed = (email) => {
     let allowedUsers = [];
@@ -33,20 +36,53 @@ export default function Root({ children }) {
     }
     if (email != null) {
       setIsDenied(false);
-      localStorage.setItem("email", email);
-      isAccessAllowed(email);
+
+      let encrypted = encrypt(email, secret);
+      localStorage.setItem("s", encrypted);
+      
+      let decrypted = decrypt(encrypted, secret);
+      isAccessAllowed(decrypted);
     }
   };
 
+  function encrypt(plainText, secret) {
+    var key = CryptoJS.enc.Utf8.parse(secret);
+    let iv = CryptoJS.lib.WordArray.create(key.words.slice(0, 4));
+    console.log("IV : " + CryptoJS.enc.Base64.stringify(iv));
+
+    // Encrypt the plaintext
+    var cipherText = CryptoJS.AES.encrypt(plainText, key, {
+      iv: iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7,
+    });
+    return cipherText.toString();
+  }
+
+  function decrypt(cipherText, secret) {
+    var key = CryptoJS.enc.Utf8.parse(secret);
+    let iv = CryptoJS.lib.WordArray.create(key.words.slice(0, 4));
+    var cipherBytes = CryptoJS.enc.Base64.parse(cipherText);
+
+    var decrypted = CryptoJS.AES.decrypt({ ciphertext: cipherBytes }, key, {
+      iv: iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7,
+    });
+
+    return decrypted.toString(CryptoJS.enc.Utf8);
+  }
+
   useEffect(() => {
-    let emailLocal = localStorage.getItem("email");
+    let emailLocal = localStorage.getItem("s");
     if (emailLocal != null) {
-      isAccessAllowed(emailLocal);
+      let decrypted = decrypt(emailLocal, secret);
+      isAccessAllowed(decrypted);
     }
   });
 
   if (!loggedIn) {
-    console.log(process.env.NODE_ENV)
+    console.log(process.env.NODE_ENV);
     return (
       <Container className="container-fluid">
         <LoginGoogle
