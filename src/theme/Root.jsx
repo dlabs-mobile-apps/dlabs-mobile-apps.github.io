@@ -14,8 +14,6 @@ export default function Root({ children }) {
     siteConfig: { customFields },
   } = useDocusaurusContext();
 
-  const secret = "!@#123dayatechmobileappsdocs4567";
-
   const isAccessAllowed = (email) => {
     let allowedUsers = [];
 
@@ -37,10 +35,10 @@ export default function Root({ children }) {
     if (email != null) {
       setIsDenied(false);
 
-      let encrypted = encrypt(email, secret);
+      let encrypted = encrypt(email, customFields.aesKey);
       localStorage.setItem("s", encrypted);
       
-      let decrypted = decrypt(encrypted, secret);
+      let decrypted = decrypt(encrypted, customFields.aesKey);
       isAccessAllowed(decrypted);
     }
   };
@@ -48,7 +46,6 @@ export default function Root({ children }) {
   function encrypt(plainText, secret) {
     var key = CryptoJS.enc.Utf8.parse(secret);
     let iv = CryptoJS.lib.WordArray.create(key.words.slice(0, 4));
-    console.log("IV : " + CryptoJS.enc.Base64.stringify(iv));
 
     // Encrypt the plaintext
     var cipherText = CryptoJS.AES.encrypt(plainText, key, {
@@ -76,7 +73,7 @@ export default function Root({ children }) {
   useEffect(() => {
     let emailLocal = localStorage.getItem("s");
     if (emailLocal != null) {
-      let decrypted = decrypt(emailLocal, secret);
+      let decrypted = decrypt(emailLocal, customFields.aesKey);
       isAccessAllowed(decrypted);
     }
   });
