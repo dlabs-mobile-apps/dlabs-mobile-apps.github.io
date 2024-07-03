@@ -60,7 +60,7 @@ export function LoginGoogle({ login, denied }) {
         />
 
         <p className={styles.title}>
-          Please sign in to your Google account to get access.
+          Please sign in to your Google account to access.
         </p>
 
         {denied ? (
