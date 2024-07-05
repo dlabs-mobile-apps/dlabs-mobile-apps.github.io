@@ -18,7 +18,7 @@
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
+[data-theme="dark"] {
   --ifm-color-primary: #25c2a0;
   --ifm-color-primary-dark: #21af90;
   --ifm-color-primary-darker: #1fa588;
@@ -27,4 +27,64 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* HTML: <div class="loader"></div> */
+.container-loader {
+  margin: auto;
+  /* border: 3px solid green; */
+  padding: 10px;
+}
+
+.loader {
+  width: 64px;
+  aspect-ratio: 1;
+  position: relative;
+}
+.loader:before,
+.loader:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: -8px 0 0 -8px;
+  width: 30px;
+  aspect-ratio: 1;
+  background: #4fddbf;
+  animation: l2-1 2s infinite, l2-2 1s infinite;
+}
+.loader:after {
+  background: #27CBFB;
+  animation-delay: -1s, 0s;
+}
+@keyframes l2-1 {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  25% {
+    top: 100%;
+    left: 0;
+  }
+  50% {
+    top: 100%;
+    left: 100%;
+  }
+  75% {
+    top: 0;
+    left: 100%;
+  }
+  100% {
+    top: 0;
+    left: 0;
+  }
+}
+@keyframes l2-2 {
+  40%,
+  50% {
+    transform: rotate(0.25turn) scale(0.5);
+  }
+  100% {
+    transform: rotate(0.5turn) scale(1);
+  }
 }

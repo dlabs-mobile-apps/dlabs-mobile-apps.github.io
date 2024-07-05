@@ -7,6 +7,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 const CryptoJS = require("crypto-js");
 
 export default function Root({ children }) {
+  const [loading, setLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isDenied, setIsDenied] = useState(false);
 
@@ -37,7 +38,7 @@ export default function Root({ children }) {
 
       let encrypted = encrypt(email, customFields.aesKey);
       localStorage.setItem("s", encrypted);
-      
+
       let decrypted = decrypt(encrypted, customFields.aesKey);
       isAccessAllowed(decrypted);
     }
@@ -76,7 +77,18 @@ export default function Root({ children }) {
       let decrypted = decrypt(emailLocal, customFields.aesKey);
       isAccessAllowed(decrypted);
     }
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   });
+
+  if (loading) {
+    return (
+      <div className="container-loader">
+        <div className="loader"></div>
+      </div>
+    );
+  }
 
   if (!loggedIn) {
     console.log(process.env.NODE_ENV);
