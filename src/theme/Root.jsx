@@ -72,6 +72,7 @@ export default function Root({ children }) {
   }
 
   useEffect(() => {
+    console.log(process.env.ALLOWED_USERS);
     let emailLocal = localStorage.getItem("s");
     if (emailLocal != null) {
       let decrypted = decrypt(emailLocal, customFields.aesKey);
