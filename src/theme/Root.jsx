@@ -18,13 +18,13 @@ export default function Root({ children }) {
       let dUsers = [];
 
       for (let i = 0; i < eData.length; i++) {
-        var e = decrypt(eData[i].u, payload.col);
+        var e = decrypt(eData[i].u, suffle(payload.col));
         dUsers.push(e);
       }
 
       if (dUsers.includes(email)) {
         setLoggedIn(true);
-        let encrypted = encrypt(email, payload.row);
+        let encrypted = encrypt(email, suffle(payload.row));
         localStorage.setItem("u", encrypted);
         setTimeout(() => {
           setLoading(false);
@@ -76,6 +76,10 @@ export default function Root({ children }) {
     return decrypted.toString(CryptoJS.enc.Utf8);
   }
 
+  function suffle(k) {
+    return k.substring(16, 32) + k.substring(0, 16);
+  }
+
   // Function to fetch data
   const fetchData = async () => {
     try {
@@ -98,7 +102,7 @@ export default function Root({ children }) {
 
       let emailLocal = localStorage.getItem("u");
       if (emailLocal != null) {
-        let decrypted = decrypt(emailLocal, result.row);
+        let decrypted = decrypt(emailLocal, suffle(result.row));
         isAccessAllowed(decrypted, { payload: result });
       }
     } catch (error) {
