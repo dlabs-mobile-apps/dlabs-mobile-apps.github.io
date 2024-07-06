@@ -32,6 +32,7 @@ export default function Root({ children }) {
       } else {
         setIsDenied(true);
         setLoggedIn(false);
+        localStorage.removeItem("u");
         setTimeout(() => {
           setLoading(false);
         }, 100);
