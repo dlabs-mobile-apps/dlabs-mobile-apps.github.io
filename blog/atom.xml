@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://dlabs-mobile-apps.github.io/blog</id>
-    <title>Dlabs Mobile Dev Team Blog</title>
+    <title>DayaTech Mobile Dev Team Blog</title>
     <updated>2021-11-09T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://dlabs-mobile-apps.github.io/blog"/>
-    <subtitle>Dlabs Mobile Dev Team Blog</subtitle>
+    <subtitle>DayaTech Mobile Dev Team Blog</subtitle>
     <icon>https://dlabs-mobile-apps.github.io/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[How to Create Blog Post]]></title>

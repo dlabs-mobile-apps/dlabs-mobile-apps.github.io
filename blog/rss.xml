@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0">
     <channel>
-        <title>Dlabs Mobile Dev Team Blog</title>
+        <title>DayaTech Mobile Dev Team Blog</title>
         <link>https://dlabs-mobile-apps.github.io/blog</link>
-        <description>Dlabs Mobile Dev Team Blog</description>
+        <description>DayaTech Mobile Dev Team Blog</description>
         <lastBuildDate>Tue, 09 Nov 2021 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
