@@ -12,9 +12,9 @@ const baseUrl =
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Dlabs Mobile Dev Team",
-  tagline: "Welcome to dlabs mobile dev team",
-
+  title: "DayaTech Mobile Dev Team",
+  tagline: "Welcome to DayaTech Mobile Dev Team",
+  
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
