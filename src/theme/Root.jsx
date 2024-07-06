@@ -25,7 +25,7 @@ export default function Root({ children }) {
       if (dUsers.includes(email)) {
         setLoggedIn(true);
         let encrypted = encrypt(email, payload.row);
-        localStorage.setItem("s", encrypted);
+        localStorage.setItem("u", encrypted);
         setTimeout(() => {
           setLoading(false);
         }, 100);
@@ -96,7 +96,7 @@ export default function Root({ children }) {
       // Update the state with the fetched data
       setData(result);
 
-      let emailLocal = localStorage.getItem("s");
+      let emailLocal = localStorage.getItem("u");
       if (emailLocal != null) {
         let decrypted = decrypt(emailLocal, result.row);
         isAccessAllowed(decrypted, { payload: result });
