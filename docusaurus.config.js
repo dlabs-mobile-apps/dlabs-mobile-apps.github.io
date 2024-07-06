@@ -59,9 +59,7 @@ const config = {
   ],
 
   customFields: {
-    allowedUsers: process.env.ALLOWED_USERS,
     googleClientId: process.env.GOOGLE_CLIENTID,
-    aesKey: process.env.AES_KEY,
   },
 
   plugins: [

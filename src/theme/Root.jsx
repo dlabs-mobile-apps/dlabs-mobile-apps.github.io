@@ -1,46 +1,51 @@
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import { LoginGoogle } from "@site/src/components/login-google";
-import { Col, Row } from "react-bootstrap";
-import useBaseUrl from "@docusaurus/useBaseUrl";
 const CryptoJS = require("crypto-js");
 
 export default function Root({ children }) {
   const [loading, setLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isDenied, setIsDenied] = useState(false);
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
 
-  const {
-    siteConfig: { customFields },
-  } = useDocusaurusContext();
+  const isAccessAllowed = (email, { payload }) => {
+    try {
+      setLoading(true);
 
-  const isAccessAllowed = (email) => {
-    let allowedUsers = [];
+      let eData = payload.data;
+      let dUsers = [];
 
-    if (typeof customFields.allowedUsers === "string") {
-      allowedUsers = customFields.allowedUsers.split(",").map((e) => e.trim());
-    }
+      for (let i = 0; i < eData.length; i++) {
+        var e = decrypt(eData[i].u, payload.col);
+        dUsers.push(e);
+      }
 
-    if (allowedUsers.includes(email)) {
-      setLoggedIn(true);
-    } else {
-      setLoggedIn(false);
+      if (dUsers.includes(email)) {
+        setLoggedIn(true);
+        let encrypted = encrypt(email, payload.row);
+        localStorage.setItem("s", encrypted);
+        setTimeout(() => {
+          setLoading(false);
+        }, 100);
+      } else {
+        setIsDenied(true);
+        setLoggedIn(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 100);
+      }
+    } catch (error) {
+      setError(error);
     }
   };
 
-  const setEmailToLocal = (email, { denied = false }) => {
-    if (denied) {
-      setIsDenied(true);
-    }
+  const checkEmail = (email) => {
     if (email != null) {
       setIsDenied(false);
 
-      let encrypted = encrypt(email, customFields.aesKey);
-      localStorage.setItem("s", encrypted);
-
-      let decrypted = decrypt(encrypted, customFields.aesKey);
-      isAccessAllowed(decrypted);
+      isAccessAllowed(email, { payload: data });
     }
   };
 
@@ -71,16 +76,54 @@ export default function Root({ children }) {
     return decrypted.toString(CryptoJS.enc.Utf8);
   }
 
-  useEffect(() => {
-    let emailLocal = localStorage.getItem("s");
-    if (emailLocal != null) {
-      let decrypted = decrypt(emailLocal, customFields.aesKey);
-      isAccessAllowed(decrypted);
+  // Function to fetch data
+  const fetchData = async () => {
+    try {
+      const apiKey =
+        "AKfycby_AxtB4v4xz6YJDB_9Yehe5jtb6lsgd7oyRJaxeL8W4-vfBMu-woh9MVIF2CwDjvVlRA";
+      const url = `https://script.google.com/macros/s/${apiKey}/exec`;
+      // Make a GET request using the Fetch API
+      const response = await fetch(url);
+
+      // Check if the response is successful (status code 200-299)
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      // Parse the JSON data from the response
+      const result = await response.json();
+
+      // Update the state with the fetched data
+      setData(result);
+
+      let emailLocal = localStorage.getItem("s");
+      if (emailLocal != null) {
+        let decrypted = decrypt(emailLocal, result.row);
+        isAccessAllowed(decrypted, { payload: result });
+      }
+    } catch (error) {
+      setError(error);
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+      }, 100);
     }
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (error != null) {
+    return (
+      <div style={{ margin: "auto", textAlign: "center" }}>
+        <p style={{ fontSize: "36pt", fontWeight: "bold" }}>
+          Something Went Wrong
+        </p>
+        <em>${error.message}</em>
+      </div>
+    );
+  }
 
   if (loading) {
     return (
@@ -91,11 +134,10 @@ export default function Root({ children }) {
   }
 
   if (!loggedIn) {
-    console.log(process.env.NODE_ENV);
     return (
       <Container className="container-fluid">
         <LoginGoogle
-          login={setEmailToLocal}
+          login={checkEmail}
           denied={isDenied === true}
         ></LoginGoogle>
       </Container>

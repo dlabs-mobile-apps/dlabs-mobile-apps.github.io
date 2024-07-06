@@ -28,24 +28,7 @@ export function LoginGoogle({ login, denied }) {
       return;
     }
     const payload = JSON.parse(plaintext);
-    if (isAllowed({ email: payload.email })) {
-      login(payload.email, { denied: false });
-    } else {
-      login(null, { denied: true });
-    }
-  }
-
-  // Checks if the supplied email address is allowed to see the page.
-  function isAllowed({ email }) {
-    let allowedUsers = [];
-
-    if (typeof customFields.allowedUsers === "string") {
-      allowedUsers = customFields.allowedUsers.split(",").map((e) => e.trim());
-    }
-    if (allowedUsers.includes(email)) {
-      return true;
-    }
-    return false;
+    login(payload.email);
   }
 
   return (
