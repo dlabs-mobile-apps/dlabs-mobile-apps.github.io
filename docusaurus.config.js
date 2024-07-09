@@ -149,7 +149,7 @@ const config = {
       footer: {
         style: "dark",
         links: [],
-        copyright: `© ${new Date().getFullYear()} Dlabs Mobile Dev Team`,
+        copyright: `© ${new Date().getFullYear()} DayaTech Mobile Dev Team`,
       },
       prism: {
         theme: lightCodeTheme,
