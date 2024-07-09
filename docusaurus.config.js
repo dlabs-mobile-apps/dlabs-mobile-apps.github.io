@@ -14,7 +14,7 @@ const baseUrl =
 const config = {
   title: "DayaTech Mobile Dev Team",
   tagline: "Welcome to DayaTech Mobile Dev Team",
-  
+
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
@@ -111,7 +111,7 @@ const config = {
       colorMode: {
         defaultMode: "dark",
         disableSwitch: false,
-        respectPrefersColorScheme: false,
+        respectPrefersColorScheme: true,
       },
       navbar: {
         title: "Mobi",
@@ -142,7 +142,7 @@ const config = {
           {
             type: "html",
             position: "right",
-            value: `<a href="#" onClick=" (function(){ localStorage.removeItem('u'); window.location.href = '${baseUrl}' })(); return false;" style="content: \'\'; width: 24px; height: 24px; background-image: url(\'https://cdn-icons-png.freepik.com/512/8377/8377213.png\'); background-repeat: no-repeat; margin-left: 10px; background-size: 24px 24px; display: flex">`,
+            value: `<a href="#" onClick=" (function(){ localStorage.removeItem('u'); window.location.href = '${baseUrl}' })(); return false;" style="content: \'\'; width: 24px; height: 24px; background-image: url(\'/img/icon-logout.png\'); background-repeat: no-repeat; margin-left: 10px; background-size: 24px 24px; display: flex">`,
           },
         ],
       },

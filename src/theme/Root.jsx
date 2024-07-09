@@ -10,7 +10,6 @@ export default function Root({ children }) {
   const [error, setError] = useState(null);
 
   const isAccessAllowed = async (email, { isEncrypted = true }) => {
-    console.log("email");
     try {
       setLoading(true);
 
@@ -112,7 +111,6 @@ export default function Root({ children }) {
 
   useEffect(() => {
     let emailLocal = localStorage.getItem("u");
-    console.log(`HELLO ${emailLocal} `);
     if (emailLocal != null) {
       isAccessAllowed(emailLocal, { isEncrypted: true });
     }
