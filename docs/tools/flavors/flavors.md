@@ -306,6 +306,99 @@ Create a new file in `.vscode/launch.json` with the following content.
   }
 ```
 
+## Build App With Flavors
+### Build Android
+- Build `APK DEV` with command
+  ```shell 
+  flutter build apk --flavor development --dart-define=ENVIRONMENT=DEV
+  ```
+
+- Build `AppBundle DEV` with command
+  ```shell 
+  flutter build appbundle --flavor development --dart-define=ENVIRONMENT=DEV
+  ```
+
+- Build `APK PROD` with command
+  ```shell 
+  flutter build apk --flavor production --dart-define=ENVIRONMENT=PROD
+  ```
+
+- Build `AppBundle PROD` with command
+  ```shell 
+  flutter build appbundle --flavor production --dart-define=ENVIRONMENT=PROD
+  ```
+
+### Build iOS
+- Build `IPA DEV with DEV METHOD` with command
+  ```shell 
+  flutter build ipa --flavor development --dart-define=ENVIRONMENT=DEV --export-options-plist=ios/exportDevOptions.plist 
+  ```
+
+- Build `IPA PROD with DEV METHOD` with command
+  ```shell 
+  flutter build ipa --flavor production --dart-define=ENVIRONMENT=PROD --export-options-plist=ios/exportProdOptions.plist 
+  ```
+
+- Build `IPA PROD with APPSTORE METHOD` with command
+  ```shell 
+  flutter build ipa --flavor production --dart-define=ENVIRONMENT=PROD --export-options-plist=ios/exportAppStoreOptions.plist 
+  ```
+
+:::info
+`DEV METHOD` is build with development certificate
+
+`APPSTORE METHOD` is build with app-store certificate
+:::
+
+:::info
+`exportDevOptions.plist`, `exportProdOptions.plist` and `exportAppStoreOptions.plist` must be available first.
+
+```xml title='DEV METHOD OPTIONS'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC “-//Apple//DTD PLIST 1.0//EN” “http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>method</key>
+        <string>development</string>
+        <key>teamID</key>
+        <string>[Your Team ID]</string>
+        <key>provisioningProfiles</key>
+        <dict>
+            <key>[Your ID]</key>
+            <string>[Your Provisioning Profile Name]</string>
+            <key>[Your ID]</key>
+            <string>[Your Provisioning Profile Name]</string>
+            .
+            .
+            .
+        </dict>
+    </dict>
+</plist>
+```
+
+```xml title='APPSTORE METHOD OPTIONS'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC “-//Apple//DTD PLIST 1.0//EN” “http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>method</key>
+        <string>app-store</string>
+        <key>teamID</key>
+        <string>[Your Team ID]</string>
+        <key>provisioningProfiles</key>
+        <dict>
+            <key>[Your ID]</key>
+            <string>[Your Provisioning Profile Name]</string>
+            <key>[Your ID]</key>
+            <string>[Your Provisioning Profile Name]</string>
+            .
+            .
+            .
+        </dict>
+    </dict>
+</plist>
+```
+:::
 
 ## Services That Need To be Reconfigured
 

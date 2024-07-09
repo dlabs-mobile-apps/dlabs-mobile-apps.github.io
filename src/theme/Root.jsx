@@ -1,18 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import { LoginGoogle } from "@site/src/components/login-google";
 const CryptoJS = require("crypto-js");
 
 export default function Root({ children }) {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isDenied, setIsDenied] = useState(false);
-  const [data, setData] = useState([]);
   const [error, setError] = useState(null);
 
-  const isAccessAllowed = (email, { payload }) => {
+  const isAccessAllowed = async (email, { isEncrypted = true }) => {
+    console.log("email");
     try {
       setLoading(true);
+
+      const payload = await fetchData();
+
+      let dEmail = email;
+
+      if (isEncrypted) {
+        dEmail = decrypt(email, suffle(payload.row));
+      }
 
       let eData = payload.data;
       let dUsers = [];
@@ -22,31 +30,52 @@ export default function Root({ children }) {
         dUsers.push(e);
       }
 
-      if (dUsers.includes(email)) {
+      if (dUsers.includes(dEmail)) {
         setLoggedIn(true);
-        let encrypted = encrypt(email, suffle(payload.row));
+        let encrypted = encrypt(dEmail, suffle(payload.row));
         localStorage.setItem("u", encrypted);
-        setTimeout(() => {
-          setLoading(false);
-        }, 100);
       } else {
         setIsDenied(true);
         setLoggedIn(false);
         localStorage.removeItem("u");
-        setTimeout(() => {
-          setLoading(false);
-        }, 100);
       }
     } catch (error) {
       setError(error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  // Function to fetch data
+  const fetchData = useCallback(async () => {
+    try {
+      const apiKey =
+        "AKfycby_AxtB4v4xz6YJDB_9Yehe5jtb6lsgd7oyRJaxeL8W4-vfBMu-woh9MVIF2CwDjvVlRA";
+      const url = `https://script.google.com/macros/s/${apiKey}/exec`;
+      // Make a GET request using the Fetch API
+      const response = await fetch(url);
+
+      // Check if the response is successful (status code 200-299)
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      // Parse the JSON data from the response
+      const result = await response.json();
+
+      return result;
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  });
 
   const checkEmail = (email) => {
     if (email != null) {
       setIsDenied(false);
 
-      isAccessAllowed(email, { payload: data });
+      isAccessAllowed(email, { isEncrypted: false });
     }
   };
 
@@ -81,42 +110,12 @@ export default function Root({ children }) {
     return k.substring(16, 32) + k.substring(0, 16);
   }
 
-  // Function to fetch data
-  const fetchData = async () => {
-    try {
-      const apiKey =
-        "AKfycby_AxtB4v4xz6YJDB_9Yehe5jtb6lsgd7oyRJaxeL8W4-vfBMu-woh9MVIF2CwDjvVlRA";
-      const url = `https://script.google.com/macros/s/${apiKey}/exec`;
-      // Make a GET request using the Fetch API
-      const response = await fetch(url);
-
-      // Check if the response is successful (status code 200-299)
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      // Parse the JSON data from the response
-      const result = await response.json();
-
-      // Update the state with the fetched data
-      setData(result);
-
-      let emailLocal = localStorage.getItem("u");
-      if (emailLocal != null) {
-        let decrypted = decrypt(emailLocal, suffle(result.row));
-        isAccessAllowed(decrypted, { payload: result });
-      }
-    } catch (error) {
-      setError(error);
-    } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 100);
-    }
-  };
-
   useEffect(() => {
-    fetchData();
+    let emailLocal = localStorage.getItem("u");
+    console.log(`HELLO ${emailLocal} `);
+    if (emailLocal != null) {
+      isAccessAllowed(emailLocal, { isEncrypted: true });
+    }
   }, []);
 
   if (error != null) {
@@ -145,6 +144,7 @@ export default function Root({ children }) {
           login={checkEmail}
           denied={isDenied === true}
         ></LoginGoogle>
+        <div style={{ display: "none" }}>{children}</div>
       </Container>
     );
   }
