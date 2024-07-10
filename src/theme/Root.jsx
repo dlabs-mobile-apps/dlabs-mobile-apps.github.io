@@ -4,7 +4,7 @@ import { LoginGoogle } from "@site/src/components/login-google";
 const CryptoJS = require("crypto-js");
 
 export default function Root({ children }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isDenied, setIsDenied] = useState(false);
   const [error, setError] = useState(null);
@@ -110,7 +110,9 @@ export default function Root({ children }) {
   }
 
   useEffect(() => {
+    setLoading(true);
     let emailLocal = localStorage.getItem("u");
+    setLoading(false);
     if (emailLocal != null) {
       isAccessAllowed(emailLocal, { isEncrypted: true });
     }
@@ -131,6 +133,7 @@ export default function Root({ children }) {
     return (
       <div className="container-loader">
         <div className="loader"></div>
+        <div style={{ display: "none" }}>{children}</div>
       </div>
     );
   }
@@ -142,7 +145,7 @@ export default function Root({ children }) {
           login={checkEmail}
           denied={isDenied === true}
         ></LoginGoogle>
-        <div style={{ display: "none" }}>{children}</div>
+        {/* <div style={{ display: "none" }}>{children}</div> */}
       </Container>
     );
   }
