@@ -1,7 +1,7 @@
 ---
 sidebar_position: 2
 tags: 
- - tools
+ - services
 description: Crashlytics helps you to collect analytics and details about crashes and errors that occur in your app. It does this through three aspects there are [Logs]  Log events in your app to be sent with the crash report for context if your app crashes, [Crash] reports Every crash is automatically turned into a crash report and sent when the application next opens and [Stack traces]  Even when an error is caught and your app recovers, the Dart stack trace can still be sent.
 ---
 

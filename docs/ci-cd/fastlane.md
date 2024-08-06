@@ -2,14 +2,22 @@
 sidebar_position: 1
 tags: 
  - ci/cd
-description: Fastlane
+description: Fastlane is an open source platform aimed at simplifying Android and iOS deployment. Fastlane lets you automate every aspect of your development and release workflow.
 ---
 
 # Fastlane
+Fastlane is an open source platform aimed at simplifying Android and iOS deployment. Fastlane lets you automate every aspect of your development and release workflow.
 
-We use fastlane for integration to firebase app distribution, play store and app store.
+We use fastlane for deployment to **`Firebase App Distribution`**, **`Google Play`** and **`App Store`**. Fastlane here can be used for `Release Script` or `Github Action` workflow.
 
 ## Setup Fastlane
+
+:::info
+We use alpha, beta and stable release type witch specification below:
+- `alpha` => use DEV environment & DEV flavor, deploy to Firebase App Distribution
+- `beta` => use PROD environment & PROD flavor, deploy to Firebase App Distribution
+- `stable` => use PROD environment & PROD flavor, deploy to Google Play or App Store
+:::
 
 First install fastlane on your mac device, 
 
@@ -34,7 +42,7 @@ sudo gem install fastlane
    fastlane add_plugin firebase_app_distribution
    ```   
 
-3. Open `Appfile` fill the `json_key_file` and `package_name` based on your app
+3. Open `Appfile` keep the `json_key_file` and `package_name` empty, because we use flavor and we must add below config at lanes based on flavors
    
    ```bash
    json_key_file("") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
@@ -48,63 +56,52 @@ sudo gem install fastlane
    default_platform(:android)
 
    platform :android do
-      desc "New Android build for Learning Hub Beta App"
-      # gradle(
-      #     task: 'assemble',
-      #     build_type: 'Release',
-      # )
-      desc "Deploy to the Firebase App Distribution"
-      lane :beta do
+      desc "Deploy Alpha to The Firebase App Distribution"
+      lane :alpha do
             firebase_app_distribution(
-               app: ENV["YOUR_ID_ANDROID_APP"],
+               app: ENV["YOUR_ALPHA_FIREBASE_APP_ID_ANDROID"],
                groups: "tester_team, dev_team",
                release_notes_file: "../release_notes.txt",
-               apk_path: "../build/app/outputs/apk/release/app-release.apk",
-               firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"]
+               apk_path: "../build/app/outputs/flutter-apk/app-development-release.apk",
+               service_credentials_file: "../fad-key.json",
             )
       end
 
-      desc "Deploy to the Open Testing Google Play Console"
-      lane :deploy_internal_test do
-         # Uploads Android App Bundle to Play Console.
-         upload_to_play_store(
-            track: 'internal',
-            release_status:"draft",
-            aab:"../build/app/outputs/bundle/release/app-release.aab"
-         )
+      desc "Deploy Beta to The Firebase App Distribution"
+      lane :beta do
+            firebase_app_distribution(
+               app: ENV["YOUR_BETA_FIREBASE_APP_ID_ANDROID"],
+               groups: "tester_team, dev_team",
+               release_notes_file: "../release_notes.txt",
+               apk_path: "../build/app/outputs/flutter-apk/app-production-release.apk",
+               service_credentials_file: "../fad-key.json",
+            )
       end
 
-      desc "Deploy to the Google Play Console"
-      lane :deploy do
-         # # Uploads Android App Bundle to Play Console. on Open Testing Track
-         # upload_to_play_store(
-         #   track: 'beta',
-         #   release_status:"draft",
-         #   aab:"../build/app/outputs/bundle/release/app-release.aab"
-         # )
-
-         # # Uploads Android App Bundle to Play Console. on Internal Testing Track
-         # upload_to_play_store(
-         #   track: 'internal',
-         #   release_status:"draft",
-         #   aab:"../build/app/outputs/bundle/release/app-release.aab"
-         # )
-
+      desc "Deploy Production Release to the Google Play Console"
+      lane :stable do
          # Uploads Android App Bundle to Play Console.
          upload_to_play_store(
-            track: 'production',
-            release_status:"draft",
-            aab:"../build/app/outputs/bundle/release/app-release.aab"
+            track: "production",
+            release_status: "draft",
+            package_name: "id.klob.app",
+            aab: "../build/app/outputs/bundle/productionRelease/app-production-release.aab",
+            json_key: "../playconsole-key.json"
          )
       end
    end
    ```
+   
    :::info
-   - `ENV["YOUR_ID_ANDROID_APP"]` is app ID android on your firebase, set it into your mac profile e.g. zshrc 
+   - `ENV["YOUR_ALPHA_FIREBASE_APP_ID_ANDROID"]` is `alpha` app ID android on your firebase, set it into your mac profile e.g. zshrc 
   
-   - *`ENV["FIREBASE_CLI_TOKEN"]` is token firebase for auth on your device, to get token cli you must install firebase cli using `curl -sL https://firebase.tools/ | bash` then `firebase login:ci`, save token to profile.
+   - `ENV["YOUR_BETA_FIREBASE_APP_ID_ANDROID"]` is `beta` or `stable` app ID android on your firebase, set it into your mac profile e.g. zshrc 
+  
+   - `"../fad-key.json"` is service account key for upload app to Firebase App Distribution. Locate file at the root of your project
   
    - `groups` name of group tester based on your firebase group tester name
+
+   - `"../playconsole-key.json"` is service account key for upload app to Google Play Console. Locate file at the root of your project
    :::
 
 ### iOS
@@ -120,10 +117,10 @@ sudo gem install fastlane
    fastlane add_plugin firebase_app_distribution
    ```   
 
-3. Open `Appfile` fill the `json_key_file` and `package_name` based on your app
+3. Open `Appfile` keep the `app_identifier` empty or commented, because we use flavor and we must add below config at lanes based on flavors
    
    ```bash
-   app_identifier("") # The bundle identifier of your app
+   # app_identifier("") # The bundle identifier of your app
 
    # For more information about the Appfile, see:
    #     https://docs.fastlane.tools/advanced/#appfile
@@ -135,28 +132,39 @@ sudo gem install fastlane
    default_platform(:ios)
 
    platform :ios do
-   desc "Upload app to firebase app distribution"
-      lane :beta do
+      desc "Deploy Alpha to The Firebase App Distribution"
+      lane :alpha do
             firebase_app_distribution(
-               app: ENV["YOUR_ID_IOS_APP"],
+               app: ENV["YOUR_ALPHA_FIREBASE_APP_ID_IOS"],
                groups: "tester_team, dev_team",
                release_notes_file: "../release_notes.txt",
-               firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
-               ipa_path: "../build/ios/ipa/learning_hub_mobileapps.ipa"
+               ipa_path: "../build/ios/ipa/your_app_mobile.ipa",
+               service_credentials_file: "../fad-key.json",
             )
       end
 
-      desc "Upload app to testflight"
-      lane :deploy do
+      desc "Deploy Beta to The Firebase App Distribution"
+      lane :beta do
+            firebase_app_distribution(
+               app: ENV["YOUR_BETA_FIREBASE_APP_ID_IOS"],
+               groups: "tester_team, dev_team",
+               release_notes_file: "../release_notes.txt",
+               ipa_path: "../build/ios/ipa/your_app_mobile.ipa",
+               service_credentials_file: "../fad-key.json",
+            )
+      end
+
+      desc "Upload Stable App to AppStore Connect"
+      lane :stable do
             app_store_connect_api_key(
-               key_id: "YOUR KEY ID",
-               issuer_id: "YOUR ISSUER ID",
-               key_content: "BASE64 KEY" // base64 encoded key,
-               is_key_content_base64: true,
-               in_house: false #boolean value if team is Enterprise or not
+               key_id: ENV["YOUR_APPSTORE_CONNECT_API_KEY_ID"],
+               issuer_id: ENV["YOUR_APPSTORE_CONNECT_API_ISSUER_ID"],
+               key_filepath: "../appstore-connect-key.p8",
+               in_house: false
             )
             pilot(
-               ipa: "../build/ios/ipa/learning_hub_mobileapps.ipa",
+               app_identifier: "id.klob.app",
+               ipa: "../build/ios/ipa/your_app_mobile.ipa",
                skip_submission: true,
                skip_waiting_for_build_processing: true
             )
@@ -165,51 +173,17 @@ sudo gem install fastlane
    ```
    
    :::info
-   - `ENV["YOUR_ID_IOS_APP"]` is app ID iOS on your firebase, set it into your mac profile e.g. zshrc 
+   - `ENV["YOUR_ALPHA_FIREBASE_APP_ID_IOS"]` is `alpha` app ID ios on your firebase, set it into your mac profile e.g. zshrc 
   
-   - *`ENV["FIREBASE_CLI_TOKEN"]` is token firebase for auth on your device, to get token cli you must install firebase cli using `curl -sL https://firebase.tools/ | bash` then `firebase login:ci`, save token to profile.
+   - `ENV["YOUR_BETA_FIREBASE_APP_ID_IOS"]` is `beta` or `stable` app ID ios on your firebase, set it into your mac profile e.g. zshrc 
+  
+   - `"../fad-key.json"` is service account key for upload app to Firebase App Distribution. Locate file at the root of your project
   
    - `groups` name of group tester based on your firebase group tester name
+
+   - `"../appstore-connect-key.p8"` is key for upload app to App Store Connect. Locate file at the root of your project
+  
+   - `ENV["YOUR_APPSTORE_CONNECT_API_KEY_ID"]` & `ENV["YOUR_APPSTORE_CONNECT_API_ISSUER_ID"]` is key id and isssuer id of `appstore-connect-key.p8`
    :::
-
-5. Add config for setup profile automatically when using script, for dev andd prod profile. Add file below into root of your iOS app:
-   
-   ```xml title=exportDevOptions.plist
-   <!-- THIS IS DEV PROFILE *-->
-   <?xml version="1.0" encoding="UTF-8"?>
-   <!DOCTYPE plist PUBLIC “-//Apple//DTD PLIST 1.0//EN” “http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-   <plist version="1.0">
-      <dict>
-         <key>method</key>
-         <string>development</string>
-         <key>teamID</key>
-         <string>[YOUR TEAM ID]</string>
-         <key>provisioningProfiles</key>
-         <dict>
-               <key>[YOUR APP BUNDLE ID]</key>
-               <string>[YOUR DEV PROVISIONING PROFILE NAME]</string>
-         </dict>
-      </dict>
-   </plist>
-   ```
-
-   ```xml title=exportAppStoreOptions.plist
-   <!-- THIS IS PROD/APP STORE PROFILE *-->
-   <?xml version="1.0" encoding="UTF-8"?>
-   <!DOCTYPE plist PUBLIC “-//Apple//DTD PLIST 1.0//EN” “http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-   <plist version="1.0">
-      <dict>
-         <key>method</key>
-         <string>app-store</string>
-         <key>teamID</key>
-         <string>[YOUR TEAM ID]</string>
-         <key>provisioningProfiles</key>
-         <dict>
-               <key>[YOUR APP BUNDLE ID]</key>
-               <string>[YOUR APP STORE PROVISIONING PROFILE NAME]</string>
-         </dict>
-      </dict>
-   </plist>
-   ```
 
 
