@@ -1,6 +1,5 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
-require("dotenv").config();
 
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
@@ -58,9 +57,7 @@ const config = {
     ],
   ],
 
-  customFields: {
-    googleClientId: process.env.GOOGLE_CLIENTID,
-  },
+  customFields: {},
 
   plugins: [
     [
@@ -95,12 +92,6 @@ const config = {
         // When applying `zh` in language, please install `nodejieba` in your project.
         docsRouteBasePath: ["/docs", "/design-system-docs"],
         docsDir: ["docs", "design-system-docs"],
-      },
-    ],
-    [
-      "docusaurus2-dotenv",
-      {
-        systemvars: true,
       },
     ],
   ],
