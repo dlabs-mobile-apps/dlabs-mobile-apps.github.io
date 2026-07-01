@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdlabs_mobile_apps_github_io=self.webpackChunkdlabs_mobile_apps_github_io||[]).push([[1266],{3242:s=>{s.exports=JSON.parse('{"name":"docusaurus-plugin-content-docs","id":"feedback"}')}}]);
